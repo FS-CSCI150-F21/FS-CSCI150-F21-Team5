@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "416547037704",
+    "project_id": "shakshuka-585e5",
+    "storage_bucket": "shakshuka-585e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416547037704:android:18d0e41fa2ce9b1331e7bd",
+        "android_client_info": {
+          "package_name": "com.example.shakshuka"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416547037704-ra5362e0at8lqb6nuq16idrsg8el1hbe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4Av7fJRFphW15mQB-pTmaR8XDv1qP6r4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416547037704-ra5362e0at8lqb6nuq16idrsg8el1hbe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
