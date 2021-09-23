@@ -1,7 +1,6 @@
 # FS-CSCI150-F21-Team5
-#Evan Toland : 2.2 Users, 5. Diagrams
-
-# FS-CSCI150-F21-Team5
+### Evan Toland : 2.2 Users, 5. Diagrams
+### If code doesn't compile, run "flutter pub get" in a terminal in this directory. That should give you the files you're missing.
 
 
 
