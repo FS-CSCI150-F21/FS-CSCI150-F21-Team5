@@ -3,8 +3,23 @@
 
 # FS-CSCI150-F21-Team5
 
+# Introduction
 
+##1.1 Purpose
+Shakshuka is a recipe planning and meal preparation app that helps users manage their recipes, plan meals, and eat better. Users using their App or the browser interface to upload, download and search for recipes with the data safely stored in the cloud server.
 
+##1.2 Scope
+Shakshuka is designed for any user who wants to store his or her recipes online without worrying about losing them later. The App will provide features for adding, deleting, updating and backup. Users can upload and download not just recipes but also photos of their dishes. All users can bookmark their favorite recipes to retrieve them later. The App also allow users to convert between metric and imperial systems. A search feature will also be available to allow users to find recipes either by name or by cuisine types. Any user can sign up for this App with an email account or with their Google or Apple accounts.
+
+# Description
+
+## 2.1 Product Components
+
+### Server and Database 
+The backend for Shakshuka will be powered by Firebase and Firestore NoSQL database. It will be used to store recipes and images. It will provide adds, updates and deletes for recipes and images. User management will be using Firebase Authentication.
+
+### Client 
+The frontend will be developed using the Flutter SDK for cross platform compatibility. It will provide the users with sign up and login services. Additional widgets will be provided for users to add, update and upload recipes and images.
 
 # Frontend Design Requirements
 
