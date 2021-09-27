@@ -10,10 +10,17 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  final formKey = GlobalKey<FormState>();
+
   late String _email;
   late String _password;
 
-  void validate() {}
+  void validate() {
+    final form = formKey.currentState;
+    if (!form!.validate()) {
+      null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +29,24 @@ class _LoginViewState extends State<LoginView> {
       body: Container(
           padding: EdgeInsets.all(16),
           child: Form(
+            key: formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Email'),
+                  validator: (value) =>
+                      value!.isEmpty ? 'Email cannot be empty' : null,
+                  onSaved: (value) => _email = value!,
                 ),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Password'),
                   obscureText: true,
+                  validator: (value) =>
+                      value!.isEmpty ? 'Password cannot be empty' : null,
+                  onSaved: (value) => _password = value!,
                 ),
-                ElevatedButton(onPressed: validate, child: Text('Login'))
+                ElevatedButton(onPressed: validate, child: const Text('Login'))
               ],
             ),
           )),
