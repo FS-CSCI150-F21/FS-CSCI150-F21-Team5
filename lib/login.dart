@@ -10,57 +10,29 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final formKey = GlobalKey<FormState>();
-
   late String _email;
   late String _password;
 
-  void validate() {
-    final form = formKey.currentState;
-    if (form!.validate()) {
-      form.save();
-    }
-  }
+  void validate() {}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Login')),
       body: Container(
-          padding: const EdgeInsets.all(30),
+          padding: EdgeInsets.all(16),
           child: Form(
-            key: formKey,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                  ),
-                  validator: (value) =>
-                      value!.isEmpty ? 'Email cannot be empty' : null,
-                  onSaved: (value) => _email = value!,
+                  decoration: InputDecoration(labelText: 'Email'),
                 ),
-                const SizedBox(height: 20),
                 TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                  ),
+                  decoration: InputDecoration(labelText: 'Password'),
                   obscureText: true,
-                  validator: (value) =>
-                      value!.isEmpty ? 'Password cannot be empty' : null,
-                  onSaved: (value) => _password = value!,
                 ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: validate,
-                  child: const Text('Login'),
-                )
+                ElevatedButton(onPressed: validate, child: Text('Login'))
               ],
             ),
           )),
