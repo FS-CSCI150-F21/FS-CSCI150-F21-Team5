@@ -17,8 +17,8 @@ class _LoginViewState extends State<LoginView> {
 
   void validate() {
     final form = formKey.currentState;
-    if (!form!.validate()) {
-      null;
+    if (form!.validate()) {
+      form.save();
     }
   }
 
@@ -27,26 +27,40 @@ class _LoginViewState extends State<LoginView> {
     return Scaffold(
       appBar: AppBar(title: const Text('Login')),
       body: Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(30),
           child: Form(
             key: formKey,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'Email'),
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
                   validator: (value) =>
                       value!.isEmpty ? 'Email cannot be empty' : null,
                   onSaved: (value) => _email = value!,
                 ),
+                const SizedBox(height: 20),
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'Password'),
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
                   obscureText: true,
                   validator: (value) =>
                       value!.isEmpty ? 'Password cannot be empty' : null,
                   onSaved: (value) => _password = value!,
                 ),
-                ElevatedButton(onPressed: validate, child: const Text('Login'))
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: validate,
+                  child: const Text('Login'),
+                )
               ],
             ),
           )),
