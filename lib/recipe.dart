@@ -47,6 +47,7 @@ class Recipe {
 
 
 
+// list of recipes used in the recipes page
 List<Recipe> recipes = [
   Recipe(
     name: 'Shakshuka',

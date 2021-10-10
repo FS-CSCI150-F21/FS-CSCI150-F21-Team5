@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shakshuka/recipe.dart';
 
 
+// recipe card widget used in the recipes page
 class RecipeCard extends StatelessWidget {
   final Recipe recipe;
   const RecipeCard({Key? key, required this.recipe }) : super(key: key);
