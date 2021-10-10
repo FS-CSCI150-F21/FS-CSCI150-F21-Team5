@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shakshuka/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-void main() {
+FirebaseAuth auth = FirebaseAuth.instance;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
