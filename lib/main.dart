@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'recipe.dart';
+import 'recipe_card.dart';
 
 
 
@@ -57,7 +58,7 @@ class _AppWrapperState extends State<AppWrapper> {
       'Index 1: Business',
       style: optionStyle,
     ),*/
-    CardDisplayPage(),
+    RecipeCardPage(),
     Text(
       'Index 2: School',
       style: optionStyle,
@@ -104,7 +105,7 @@ class _AppWrapperState extends State<AppWrapper> {
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
 
-        // background colors only change with "type: .fixed"
+        // background colors only change with "type: .shifting"
         items: const <BottomNavigationBarItem>[
 
           BottomNavigationBarItem(
@@ -151,19 +152,6 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
 
-      /*appBar: AppBar(
-        title: const Text(
-            'Shakshuka',
-          style: TextStyle(
-            fontSize: 24,
-            fontFamily: 'Roboto',
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.deepOrange[900],
-      ),*/
-
       floatingActionButton: FloatingActionButton(
         onPressed: () { print('asdf'); },
         child: const Icon(Icons.add), //const Text('click'),
@@ -200,12 +188,12 @@ class Home extends StatelessWidget {
                 Container(
                   color: Colors.deepOrange[900],
                   padding: const EdgeInsets.all(16.0),
-                  child: const Text('Click Me!'),
+                  child: const Text('Look At Me!'),
                 ),
                 Container(
                   color: Colors.deepOrange[900],
                   padding: const EdgeInsets.all(16.0),
-                  child: const Text('Click Me Harder!'),
+                  child: const Text('Look At Me Harder!'),
                 ),
 
               ],
@@ -248,22 +236,20 @@ class Home extends StatelessWidget {
 
 
 
-class CardDisplayPage extends StatefulWidget {
-  const CardDisplayPage({Key? key}) : super(key: key);
+class RecipeCardPage extends StatefulWidget {
+  const RecipeCardPage({Key? key}) : super(key: key);
   @override
-  _CardDisplayPageState createState() => _CardDisplayPageState();
+  _RecipeCardPageState createState() => _RecipeCardPageState();
 }
 
-class _CardDisplayPageState extends State<CardDisplayPage> {
+class _RecipeCardPageState extends State<RecipeCardPage> {
   @override
   Widget build(BuildContext context) {
     return Column(
       /*  Take the list of Recipes "recipes", and then for each member of that
-      list we're calling "recipe", we take that member's "name" property and
-      shove it into a text widget. We then convert this mapping into a list */
-      children: recipes.map((recipe) => Text(
-          '${recipe.name} - by: ${recipe.creator}'
-      )).toList(),
+      list we name "recipe", we take that member and shove it into a RecipeCard
+      Widget. We then convert this mapping into a list  */
+      children: recipes.map((recipe) => RecipeCard(recipe: recipe)).toList(),
     );
   }
 }
