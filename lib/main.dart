@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'recipe.dart';
+
+
+
+
 
 void main() {
   //int _selectedIndex = 0;
@@ -23,7 +28,7 @@ class ShakshukaApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.red,
       ),*/
-      home: StatefulScreen(),//Home(),//
+      home: AppWrapper(),
     );
   }
 }
@@ -31,13 +36,13 @@ class ShakshukaApp extends StatelessWidget {
 
 
 
-class StatefulScreen extends StatefulWidget {
-  const StatefulScreen({Key? key}) : super(key: key);
+class AppWrapper extends StatefulWidget {
+  const AppWrapper({Key? key}) : super(key: key);
   @override
-  _StatefulScreenState createState() => _StatefulScreenState();
+  _AppWrapperState createState() => _AppWrapperState();
 }
 
-class _StatefulScreenState extends State<StatefulScreen> {
+class _AppWrapperState extends State<AppWrapper> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
   TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
@@ -48,10 +53,11 @@ class _StatefulScreenState extends State<StatefulScreen> {
       style: optionStyle,
     ),*/
     Home(),
-    Text(
+    /*Text(
       'Index 1: Business',
       style: optionStyle,
-    ),
+    ),*/
+    CardDisplayPage(),
     Text(
       'Index 2: School',
       style: optionStyle,
@@ -90,36 +96,42 @@ class _StatefulScreenState extends State<StatefulScreen> {
       ),
 
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.deepOrange[900],
+        selectedItemColor: Colors.amber[600],
+        unselectedItemColor: Colors.white,
+        showUnselectedLabels: false,
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+
+        // background colors only change with "type: .fixed"
         items: const <BottomNavigationBarItem>[
 
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-            backgroundColor: Colors.deepOrange,
+            //backgroundColor: Colors.deepOrange,
           ),
 
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
-            backgroundColor: Colors.green,
+            icon: Icon(Icons.menu_book),
+            label: 'Recipes',
+            //backgroundColor: Colors.amber,
           ),
 
           BottomNavigationBarItem(
             icon: Icon(Icons.school),
             label: 'School',
-            backgroundColor: Colors.purple,
+            //backgroundColor: Colors.purple,
           ),
 
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Settings',
-            backgroundColor: Colors.pink,
+            //backgroundColor: Colors.pink,
           ),
 
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[600],
-        onTap: _onItemTapped,
       ),
     );
   }
@@ -232,6 +244,41 @@ class Home extends StatelessWidget {
     );
   }
 }
+
+
+
+
+class CardDisplayPage extends StatefulWidget {
+  const CardDisplayPage({Key? key}) : super(key: key);
+  @override
+  _CardDisplayPageState createState() => _CardDisplayPageState();
+}
+
+class _CardDisplayPageState extends State<CardDisplayPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      /*  Take the list of Recipes "recipes", and then for each member of that
+      list we're calling "recipe", we take that member's "name" property and
+      shove it into a text widget. We then convert this mapping into a list */
+      children: recipes.map((recipe) => Text(
+          '${recipe.name} - by: ${recipe.creator}'
+      )).toList(),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
       /*Center(
         child: ElevatedButton.icon(
