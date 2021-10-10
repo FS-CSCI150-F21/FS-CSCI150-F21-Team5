@@ -17,6 +17,7 @@ class ShakshukaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Shakshuka',
       /*theme: ThemeData(
         // This is the theme of your application.
@@ -45,28 +46,13 @@ class AppWrapper extends StatefulWidget {
 
 class _AppWrapperState extends State<AppWrapper> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-  TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
 
+  // this is the list of pages the bottom navigation bar will address
   static const List<Widget> _widgetOptions = <Widget>[
-    /*Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),*/
     Home(),
-    /*Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),*/
     RecipeCardPage(),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 3: Settings',
-      style: optionStyle,
-    ),
+    GroceryPage(),
+    SearchPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -96,6 +82,7 @@ class _AppWrapperState extends State<AppWrapper> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
 
+      //https://api.flutter.dev/flutter/material/BottomNavigationBar-class.html
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.deepOrange[900],
@@ -121,14 +108,14 @@ class _AppWrapperState extends State<AppWrapper> {
           ),
 
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
+            icon: Icon(Icons.kitchen),
+            label: 'Grocery List',
             //backgroundColor: Colors.purple,
           ),
 
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
+            icon: Icon(Icons.search),
+            label: 'Search',
             //backgroundColor: Colors.pink,
           ),
 
@@ -228,7 +215,6 @@ class Home extends StatelessWidget {
         ),
       ),
 
-
     );
   }
 }
@@ -257,56 +243,31 @@ class _RecipeCardPageState extends State<RecipeCardPage> {
 
 
 
+class GroceryPage extends StatelessWidget {
+  const GroceryPage({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset('res/img/shakshuka.jpg');
+  }
+}
 
 
 
 
-
-
-
-
-
-      /*Center(
-        child: ElevatedButton.icon(
-          onPressed: () {
-            print('I\'ve been pressed!');
-          },
-          icon: const Icon(Icons.ac_unit),
-          label: const Text('myLabel'/*, style: TextStyle(color: Colors.black),*/),
-          style: ElevatedButton.styleFrom(primary: Colors.amber[600]),
-        ),
-        //Image.asset('res/img/shakshuka.jpg'),
-      ),*/
-
-          //Image.network('https://p0.pxfuel.com/preview/18/265/193/food-shakshouka-israel-tel-aviv.jpg'),
-          /*Text(
-          'Shakshuka is delicious!',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.deepOrange[900],
-            fontFamily: 'Roboto',*/
-
-      /*bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.business),
-              label: 'Business',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.school),
-              label: 'School',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.amber[800],
-          //onTap: /*_onItemTapped*/_selectedIndex = 0,
-        ),*/
-
+class SearchPage extends StatelessWidget {
+  const SearchPage({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        color: Colors.grey[300],
+        padding: EdgeInsets.all(8.0),
+        margin: EdgeInsets.all(16.0),
+        child: TextField(),
+      ),
+    );
+  }
+}
 
 
 
