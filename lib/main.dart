@@ -1,15 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:shakshuka/screens/splash_screen.dart';
 import 'package:shakshuka/services/auth_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'recipe.dart';
-import 'recipe_card.dart';
+import 'pages/home_page.dart';
+import 'pages/recipe_page.dart';
+import 'pages/grocery_page.dart';
+import 'pages/search_page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -67,7 +69,7 @@ class _AppWrapperState extends State<AppWrapper> {
   // this is the list of pages the bottom navigation bar will address
   static const List<Widget> _widgetOptions = <Widget>[
     Home(),
-    RecipeCardPage(),
+    RecipePage(),
     GroceryPage(),
     SearchPage(),
   ];
@@ -131,127 +133,6 @@ class _AppWrapperState extends State<AppWrapper> {
             //backgroundColor: Colors.pink,
           ),
         ],
-      ),
-    );
-  }
-}
-
-class Home extends StatelessWidget {
-  //Color? primaryColor = Colors.deepOrange[900];
-  //Color? secondaryColor = Colors.amber[600];
-  //Color? lightBdColor = Colors.grey[200];
-  //Color? lightBdAtColor = Colors.grey[300];
-  const Home({Key? key}) : super(key: key);
-  // override "StatelessWidget"'s "build" method with this
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print('asdf');
-        },
-        child: const Icon(Icons.add), //const Text('click'),
-        backgroundColor: Colors.amber[600],
-      ),
-      body: Container(
-        color: Colors.grey[200],
-        padding: const EdgeInsets.all(8.0),
-        margin: const EdgeInsets.all(0.0),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              const SizedBox(height: 32.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      print('I\'ve been pressed!');
-                    },
-                    icon: const Icon(Icons.ac_unit),
-                    label: const Text(
-                      'myLabel',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    style: ElevatedButton.styleFrom(primary: Colors.amber[600]),
-                  ),
-                  Container(
-                    color: Colors.deepOrange[900],
-                    padding: const EdgeInsets.all(16.0),
-                    child: const Text('Look At Me!'),
-                  ),
-                  Container(
-                    color: Colors.deepOrange[900],
-                    padding: const EdgeInsets.all(16.0),
-                    child: const Text('Look At Me Harder!'),
-                  ),
-                ],
-              ),
-              const Divider(
-                height: 32.0,
-                color: Colors.deepOrange,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      print('I\'ve been pressed!');
-                    },
-                    icon: const Icon(Icons.account_box),
-                    label: const Text(
-                      'Personeax',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    style: ElevatedButton.styleFrom(primary: Colors.amber[600]),
-                  ),
-                ],
-              ),
-            ]),
-      ),
-    );
-  }
-}
-
-class RecipeCardPage extends StatefulWidget {
-  const RecipeCardPage({Key? key}) : super(key: key);
-  @override
-  _RecipeCardPageState createState() => _RecipeCardPageState();
-}
-
-class _RecipeCardPageState extends State<RecipeCardPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      /*  Take the list of Recipes "recipes", and then for each member of that
-      list we name "recipe", we take that member and shove it into a RecipeCard
-      Widget. We then convert this mapping into a list  */
-      children: recipes.map((recipe) => RecipeCard(recipe: recipe)).toList(),
-    );
-  }
-}
-
-class GroceryPage extends StatelessWidget {
-  const GroceryPage({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Image.asset('res/img/shakshuka.jpg');
-  }
-}
-
-class SearchPage extends StatelessWidget {
-  const SearchPage({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Colors.grey[300],
-        padding: EdgeInsets.all(8.0),
-        margin: EdgeInsets.all(16.0),
-        child: TextField(),
       ),
     );
   }

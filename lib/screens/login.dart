@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/instance_manager.dart';
 import 'package:provider/provider.dart';
+import 'package:shakshuka/pages/home_page.dart';
 import 'package:shakshuka/services/auth_provider.dart';
 import 'package:get/get.dart';
 import 'package:shakshuka/widgets/loadding_view.dart';
