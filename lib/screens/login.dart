@@ -27,7 +27,7 @@ class _LoginViewState extends State<LoginView> {
     return Scaffold(
       appBar: AppBar(title: const Text('Login')),
       body: Container(
-          padding: const EdgeInsets.all(30),
+          padding: const EdgeInsets.all(10),
           child: Form(
             key: formKey,
             child: Column(

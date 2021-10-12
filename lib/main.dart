@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shakshuka/login.dart';
+import 'package:shakshuka/screens/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shakshuka/screens/wrapper.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -15,10 +16,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Login',
-        theme: ThemeData(
-          primaryColor: Colors.red[700],
-        ),
-        home: LoginView());
+      title: 'Login',
+      theme: ThemeData(
+        primaryColor: Colors.red[700],
+      ),
+      home: Wrapper(),
+    );
   }
 }
