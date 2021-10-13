@@ -1,39 +1,11 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-import 'package:shakshuka/screens/login.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:shakshuka/screens/wrapper.dart';
-
-FirebaseAuth auth = FirebaseAuth.instance;
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
-=======
 import 'recipe.dart';
 import 'recipe_card.dart';
-
-
-
 
 void main() {
   //int _selectedIndex = 0;
   runApp(const ShakshukaApp());
->>>>>>> staging
 }
-
-
-<<<<<<< HEAD
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Login',
-      theme: ThemeData(
-        primaryColor: Colors.red[700],
-      ),
-      home: Wrapper(),
-=======
-
 
 class ShakshukaApp extends StatelessWidget {
   const ShakshukaApp({Key? key}) : super(key: key);
@@ -58,9 +30,6 @@ class ShakshukaApp extends StatelessWidget {
   }
 }
 
-
-
-
 class AppWrapper extends StatefulWidget {
   const AppWrapper({Key? key}) : super(key: key);
   @override
@@ -79,7 +48,7 @@ class _AppWrapperState extends State<AppWrapper> {
   ];
 
   void _onItemTapped(int index) {
-    setState((){
+    setState(() {
       _selectedIndex = index;
     });
   }
@@ -87,7 +56,6 @@ class _AppWrapperState extends State<AppWrapper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
         title: const Text(
           'Shakshuka',
@@ -117,39 +85,31 @@ class _AppWrapperState extends State<AppWrapper> {
 
         // background colors only change with "type: .shifting"
         items: const <BottomNavigationBarItem>[
-
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
             //backgroundColor: Colors.deepOrange,
           ),
-
           BottomNavigationBarItem(
             icon: Icon(Icons.menu_book),
             label: 'Recipes',
             //backgroundColor: Colors.amber,
           ),
-
           BottomNavigationBarItem(
             icon: Icon(Icons.kitchen),
             label: 'Grocery List',
             //backgroundColor: Colors.purple,
           ),
-
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
             label: 'Search',
             //backgroundColor: Colors.pink,
           ),
-
         ],
       ),
     );
   }
 }
-
-
-
 
 class Home extends StatelessWidget {
   //Color? primaryColor = Colors.deepOrange[900];
@@ -161,89 +121,75 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       floatingActionButton: FloatingActionButton(
-        onPressed: () { print('asdf'); },
+        onPressed: () {
+          print('asdf');
+        },
         child: const Icon(Icons.add), //const Text('click'),
         backgroundColor: Colors.amber[600],
       ),
-
       body: Container(
         color: Colors.grey[200],
         padding: const EdgeInsets.all(8.0),
         margin: const EdgeInsets.all(0.0),
-
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-
-            const SizedBox(height: 32.0),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-
-                ElevatedButton.icon(
-                  onPressed: () { print('I\'ve been pressed!'); },
-                  icon: const Icon(Icons.ac_unit),
-                  label: const Text(
-                    'myLabel',
-                    style: TextStyle(
-                      color: Colors.black),
-                  ),
-                  style: ElevatedButton.styleFrom(primary: Colors.amber[600]),
-                ),
-                Container(
-                  color: Colors.deepOrange[900],
-                  padding: const EdgeInsets.all(16.0),
-                  child: const Text('Look At Me!'),
-                ),
-                Container(
-                  color: Colors.deepOrange[900],
-                  padding: const EdgeInsets.all(16.0),
-                  child: const Text('Look At Me Harder!'),
-                ),
-
-              ],
-            ),
-
-            const Divider(
-              height: 32.0,
-              color: Colors.deepOrange,
-            ),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-
-                ElevatedButton.icon(
-                  onPressed: () { print('I\'ve been pressed!'); },
-                  icon: const Icon(Icons.account_box),
-                  label: const Text(
-                    'Personeax',
-                    style: TextStyle(
-                        color: Colors.black
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              const SizedBox(height: 32.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      print('I\'ve been pressed!');
+                    },
+                    icon: const Icon(Icons.ac_unit),
+                    label: const Text(
+                      'myLabel',
+                      style: TextStyle(color: Colors.black),
                     ),
+                    style: ElevatedButton.styleFrom(primary: Colors.amber[600]),
                   ),
-                  style: ElevatedButton.styleFrom(primary: Colors.amber[600]),
-                ),
-
-              ],
-            ),
-
-          ]
-        ),
+                  Container(
+                    color: Colors.deepOrange[900],
+                    padding: const EdgeInsets.all(16.0),
+                    child: const Text('Look At Me!'),
+                  ),
+                  Container(
+                    color: Colors.deepOrange[900],
+                    padding: const EdgeInsets.all(16.0),
+                    child: const Text('Look At Me Harder!'),
+                  ),
+                ],
+              ),
+              const Divider(
+                height: 32.0,
+                color: Colors.deepOrange,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      print('I\'ve been pressed!');
+                    },
+                    icon: const Icon(Icons.account_box),
+                    label: const Text(
+                      'Personeax',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    style: ElevatedButton.styleFrom(primary: Colors.amber[600]),
+                  ),
+                ],
+              ),
+            ]),
       ),
-
     );
   }
 }
-
-
-
 
 class RecipeCardPage extends StatefulWidget {
   const RecipeCardPage({Key? key}) : super(key: key);
@@ -263,9 +209,6 @@ class _RecipeCardPageState extends State<RecipeCardPage> {
   }
 }
 
-
-
-
 class GroceryPage extends StatelessWidget {
   const GroceryPage({Key? key}) : super(key: key);
   @override
@@ -273,9 +216,6 @@ class GroceryPage extends StatelessWidget {
     return Image.asset('res/img/shakshuka.jpg');
   }
 }
-
-
-
 
 class SearchPage extends StatelessWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -288,7 +228,6 @@ class SearchPage extends StatelessWidget {
         margin: EdgeInsets.all(16.0),
         child: TextField(),
       ),
->>>>>>> staging
     );
   }
 }
