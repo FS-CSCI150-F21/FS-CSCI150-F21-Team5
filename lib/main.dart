@@ -1,32 +1,50 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+import 'package:shakshuka/screens/splash_screen.dart';
+import 'package:shakshuka/services/auth_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'recipe.dart';
 import 'recipe_card.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   //int _selectedIndex = 0;
-  runApp(const ShakshukaApp());
+  runApp(MyApp(
+    prefs: prefs,
+  ));
 }
 
-class ShakshukaApp extends StatelessWidget {
-  const ShakshukaApp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  final SharedPreferences prefs;
+  final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+
+  MyApp({Key? key, required this.prefs}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Shakshuka',
-      /*theme: ThemeData(
-        // This is the theme of your application.
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.red,
-      ),*/
-      home: AppWrapper(),
-    );
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider<AuthProvider>(
+            create: (_) => AuthProvider(
+              firebaseAuth: FirebaseAuth.instance,
+              googleSignIn: GoogleSignIn(),
+              prefs: this.prefs,
+              firebaseFirestore: this.firebaseFirestore,
+            ),
+          ),
+        ],
+        child: const MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Shakshuka',
+            home: SplashPage()));
   }
 }
 
