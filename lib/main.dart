@@ -21,13 +21,17 @@ Future main() async {
   ));
 }
 
+// TODO: replace Genric MyApp with proper name
 class MyApp extends StatelessWidget {
+  // intit states for firebase instance
   final SharedPreferences prefs;
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
-
+  //require that that prefs be passed in when MyApp is called
   MyApp({Key? key, required this.prefs}) : super(key: key);
 
+  // with all values passed in we now intilize our auth provider with that data by shadowing the variables
+  // this will also help us determin the login state of the user in the splash screen
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -36,11 +40,14 @@ class MyApp extends StatelessWidget {
             create: (_) => AuthProvider(
               firebaseAuth: FirebaseAuth.instance,
               googleSignIn: GoogleSignIn(),
+              // ignore: unnecessary_this
               prefs: this.prefs,
+              // ignore: unnecessary_this
               firebaseFirestore: this.firebaseFirestore,
             ),
           ),
         ],
+        // this will return splash screen which will determin where to redirect useres based on login state
         child: const MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Shakshuka',
