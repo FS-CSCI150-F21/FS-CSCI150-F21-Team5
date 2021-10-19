@@ -5,13 +5,13 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
+import 'package:shakshuka/screens/grocery_page.dart';
+import 'package:shakshuka/screens/home_page.dart';
+import 'package:shakshuka/screens/recipe_page.dart';
+import 'package:shakshuka/screens/search_page.dart';
 import 'package:shakshuka/screens/splash_screen.dart';
 import 'package:shakshuka/services/auth_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'pages/home_page.dart';
-import 'pages/recipe_page.dart';
-import 'pages/grocery_page.dart';
-import 'pages/search_page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -66,7 +66,7 @@ class AppWrapper extends StatefulWidget {
 class _AppWrapperState extends State<AppWrapper> {
   int _selectedIndex = 0;
 
-  // this is the list of pages the bottom navigation bar will address
+  // this is the list of screens the bottom navigation bar will address
   static const List<Widget> _widgetOptions = <Widget>[
     Home(),
     RecipePage(),
