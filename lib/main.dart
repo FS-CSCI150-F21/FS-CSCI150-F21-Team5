@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'pages/home_page.dart';
-import 'pages/recipe_page.dart';
-import 'pages/grocery_page.dart';
-import 'pages/search_page.dart';
+import 'screens/home_page.dart';
+import 'screens/recipe_page.dart';
+import 'screens/grocery_page.dart';
+import 'screens/search_page.dart';
 
 
 
@@ -51,7 +51,7 @@ class AppWrapper extends StatefulWidget {
 class _AppWrapperState extends State<AppWrapper> {
   int _selectedIndex = 0;
 
-  // this is the list of pages the bottom navigation bar will address
+  // this is the list of screens the bottom navigation bar will address
   static const List<Widget> _widgetOptions = <Widget>[
     Home(),
     RecipePage(),
