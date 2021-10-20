@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shakshuka/services/firestore_constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rxdart/rxdart.dart';
+import 'package:get/get.dart';
 
 // this enum will be used to track the login state of the user
 enum Status {
@@ -17,102 +19,65 @@ enum Status {
 // when the users state changes all listeners will be notifed
 
 // this will act as out basic state mangment solution
-class AuthProvider extends ChangeNotifier {
-  final GoogleSignIn googleSignIn;
-  final FirebaseAuth firebaseAuth;
-  final FirebaseFirestore firebaseFirestore;
-  final SharedPreferences prefs;
+class AuthProvider {
+  static Future<User?> signInWithGoogle({required BuildContext context}) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
 
-  Status _status = Status.uninitialized;
+    final GoogleSignIn googleSignIn = GoogleSignIn();
 
-  Status get status => _status;
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
 
-  AuthProvider({
-    required this.firebaseAuth,
-    required this.googleSignIn,
-    required this.prefs,
-    required this.firebaseFirestore,
-  });
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
 
-  //retrives firebaseUserId from local cache instead of from the cloud
-  String? getFirebaseUserId() {
-    return prefs.getString(FirestoreConstants.id);
-  }
-
-  // checks the google login state
-  Future<bool> isLoggedIn() async {
-    bool isLoggedIn = await googleSignIn.isSignedIn();
-    if (isLoggedIn &&
-        prefs.getString(FirestoreConstants.id)?.isNotEmpty == true) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  // this function does all the heavy lifting for signing google users
-  // if the user does not have an account it register them for one
-  // however if the user does have an account already it signs them in
-  Future<bool> handelSignIn() async {
-    _status = Status.authenticating;
-    notifyListeners();
-
-    // wait for a response to sign in with google and stores the results of that action in the final variable AuthCredential
-    GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-    if (googleUser != null) {
-      GoogleSignInAuthentication? googleAuth = await googleUser.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
       );
-      // then take those google user credientials and convert it into a firebase user
-      User? firebaseUser =
-          (await firebaseAuth.signInWithCredential(credential)).user;
-      // if the firebase user is not null search out database for the user and stoer the result in document
-      if (firebaseUser != null) {
-        final QuerySnapshot result = await firebaseFirestore
-            .collection(FirestoreConstants.pathUserCollection)
-            .where(FirestoreConstants.id, isEqualTo: firebaseUser.uid)
-            .get();
-        final List<DocumentSnapshot> document = result.docs;
-        // if the document is empty  add the user to you firebase database as a new user
-        if (document.isEmpty) {
-          firebaseFirestore
-              .collection(FirestoreConstants.pathUserCollection)
-              .doc(firebaseUser.uid)
-              .set({
-            FirestoreConstants.nickname: firebaseUser.displayName,
-            FirestoreConstants.id: firebaseUser.uid,
-            'createdAt': DateTime.now().millisecondsSinceEpoch.toString(),
-          });
-          // stores the user to local prefs
-          User? currentUser = firebaseUser;
-          await prefs.setString(FirestoreConstants.id, currentUser.uid);
-          await prefs.setString(
-              FirestoreConstants.nickname, currentUser.displayName ?? "");
-        } else {
-          DocumentSnapshot documentSnapshot = document[0];
-          //TODO implement fetching pre-exsisting userdata from firestore
+
+      try {
+        final UserCredential userCredential =
+            await auth.signInWithCredential(credential);
+
+        user = userCredential.user;
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'account-exists-with-different-credential') {
+          Get.snackbar(
+            'Error',
+            'The account already exists with a different credential',
+          );
+        } else if (e.code == 'invalid-credential') {
+          Get.snackbar(
+            'Error',
+            'invalid credential',
+          );
         }
-        _status = Status.authenticated;
-        notifyListeners();
-        return true;
-      } else {
-        _status = Status.authenticateError;
-        notifyListeners();
-        return false;
+      } catch (e) {
+        Get.snackbar(
+          'Error',
+          'An Error occured please try again later',
+        );
       }
-    } else {
-      _status = Status.authenticateCanceled;
-      notifyListeners();
-      return false;
     }
+
+    return user;
   }
 
-  Future<void> handleSignOut() async {
-    _status = Status.uninitialized;
-    await firebaseAuth.signOut();
-    await googleSignIn.disconnect();
-    await googleSignIn.signOut();
+  static Future<void> signOut({required BuildContext context}) async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+
+    try {
+      await FirebaseAuth.instance.signOut();
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'An Error occured please try again',
+      );
+    }
   }
 }
+
+final AuthProvider authProvider = AuthProvider();
