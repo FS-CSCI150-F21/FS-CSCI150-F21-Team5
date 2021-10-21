@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shakshuka/services/firestore_constant.dart';
@@ -8,6 +9,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:get/get.dart';
 
 // this enum will be used to track the login state of the user
+// this will act as out basic state mangment solution
 enum Status {
   uninitialized,
   authenticated,
@@ -15,69 +17,119 @@ enum Status {
   authenticateError,
   authenticateCanceled,
 }
+
 //AuthProvider is a changeNotifer which allows other objects to subscribe to listen for changes
 // when the users state changes all listeners will be notifed
+class AuthProvider extends ChangeNotifier {
+  final GoogleSignIn googleSignIn;
+  final FirebaseAuth auth;
+  final FirebaseFirestore db;
+  final SharedPreferences prefs;
+  // initialise our status as unintilized
+  // we will be using status as a means of tracking user signed in state durring login
+  Status _status = Status.uninitialized;
 
-// this will act as out basic state mangment solution
-class AuthProvider {
-  static Future<User?> signInWithGoogle({required BuildContext context}) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    User? user;
+  Status get status => _status;
 
-    final GoogleSignIn googleSignIn = GoogleSignIn();
+  // constructor for AuthProvider, all of the following variables will be required to be passed in when called
+  AuthProvider({
+    required this.auth,
+    required this.googleSignIn,
+    required this.prefs,
+    required this.db,
+  });
+  // this is used to fetch the Firebase User Id from the local shared preferences
+  String? getUserFirebaseId() {
+    return prefs.getString(FirestoreConstants.id);
+  }
 
-    final GoogleSignInAccount? googleSignInAccount =
-        await googleSignIn.signIn();
+  // will check if a users is signed in
+  Future<bool> isLoggedIn() async {
+    // get the loggedIn state from google
+    bool isLoggedIn = await googleSignIn.isSignedIn();
+    // A user is only consideried signedIn if both local shared prefrences and the googleSignIn agree on useres signed in state
+    if (isLoggedIn &&
+        prefs.getString(FirestoreConstants.id)?.isNotEmpty == true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-    if (googleSignInAccount != null) {
-      final GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount.authentication;
-
+  // The main bread and butter of the AuthProviders class
+  // this function will return some time in the future with a boolean result of what happend durring sign in it will also update our _status
+  Future<bool> handelGoogleSignIn() async {
+    // change state to autherticating and notify all listeners of this change
+    _status = Status.authenticating;
+    notifyListeners();
+    // wait for a result from google sign in
+    GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+    // if we get a value back then we can continue
+    if (googleUser != null) {
+      //wait for google to autheticate the user
+      GoogleSignInAuthentication? googleAuth = await googleUser.authentication;
+      // then when autheticated we can bind the google credientials to our firebase AuthCredentials
       final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleSignInAuthentication.accessToken,
-        idToken: googleSignInAuthentication.idToken,
-      );
-
-      try {
-        final UserCredential userCredential =
-            await auth.signInWithCredential(credential);
-
-        user = userCredential.user;
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'account-exists-with-different-credential') {
-          Get.snackbar(
-            'Error',
-            'The account already exists with a different credential',
-          );
-        } else if (e.code == 'invalid-credential') {
-          Get.snackbar(
-            'Error',
-            'invalid credential',
-          );
+          accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+      // next we take those credentials and then with firebase we wait to assign them to a firebaseUser
+      User? firebaseUser = (await auth.signInWithCredential(credential)).user;
+      // when the firebase user has been assigned we can query our database for the user
+      if (firebaseUser != null) {
+        final QuerySnapshot result = await db
+            .collection(FirestoreConstants.pathUserCollection)
+            .where(FirestoreConstants.id, isEqualTo: firebaseUser.uid)
+            .get();
+        // we bind the results of that query to document for addiational checks
+        final List<DocumentSnapshot> document = result.docs;
+        // first we check to see if the user we quried for even exsists
+        if (document.isEmpty) {
+          // If the user does not exsit then we add them to our database as a new user
+          db
+              .collection(FirestoreConstants.pathUserCollection)
+              .doc(firebaseUser.uid)
+              .set({
+            FirestoreConstants.nickname: firebaseUser.displayName,
+            FirestoreConstants.id: firebaseUser.uid,
+            'createdAt': DateTime.now().microsecondsSinceEpoch.toString()
+          });
+          User? currentUser = firebaseUser;
+          await prefs.setString(FirestoreConstants.id, currentUser.uid);
+          await prefs.setString(
+              FirestoreConstants.nickname, currentUser.displayName ?? "");
+        } // if the user does exsit in our db then we can set our local shared prefrences to be that firebase user
+        // this stores their Creds locally
+        else {
+          DocumentSnapshot documentSnapshot = document[0];
+          User? currentUser = firebaseUser;
+          await prefs.setString(FirestoreConstants.id, currentUser.uid);
+          await prefs.setString(
+              FirestoreConstants.nickname, currentUser.displayName ?? "");
         }
-      } catch (e) {
-        Get.snackbar(
-          'Error',
-          'An Error occured please try again later',
-        );
+        // after we either sign them in or register them we change our state to autheticated and notify any listeners that are waiting for a result
+        _status = Status.authenticated;
+        notifyListeners();
+        return true;
+      } //if firebaseUser != null statment
+      //  however if the user cann not be signed in then we change the state to an authenticateError and notify any listeners that the user could not be signed in
+      else {
+        _status = Status.authenticateError;
+        notifyListeners();
+        return false;
       }
     }
-
-    return user;
-  }
-
-  static Future<void> signOut({required BuildContext context}) async {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-
-    try {
-      await FirebaseAuth.instance.signOut();
-    } catch (e) {
-      Get.snackbar(
-        'Error',
-        'An Error occured please try again',
-      );
+    // if there is no error but the user was not signed in that means the signIn was canled by the user and listeners have to be notifed of that change as well
+    else {
+      _status = Status.authenticateCanceled;
+      notifyListeners();
+      return false;
     }
   }
-}
 
-final AuthProvider authProvider = AuthProvider();
+  // signs a google user out of their account and sets the status back to uninitlized
+  Future<void> handleGoogleSignOut() async {
+    _status = Status.uninitialized;
+    await auth.signOut();
+    await googleSignIn.disconnect();
+    await googleSignIn.signOut();
+  }
+}
