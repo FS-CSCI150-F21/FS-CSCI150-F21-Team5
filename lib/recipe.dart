@@ -1,6 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+const defaultImage = Image(
+  image: NetworkImage('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+);
+
+//const defaultIngredient = const Ingredient();
+
 enum RecipeDifficulty {
   easy,
   moderate,
@@ -9,36 +15,36 @@ enum RecipeDifficulty {
 }
 
 class Ingredient {
-  double? quantity;
-  String? unit;
-  String? ingredient;
+  double quantity;
+  String unit;
+  String ingredient;
 
   Ingredient({
-    this.quantity,
-    this.unit,
-    this.ingredient
+    this.quantity = 0,
+    this.unit = '',
+    this.ingredient = ''
   });
 }
 
 class Recipe {
   String name;
-  String? cookTime;
-  String? prepTime;
-  Ingredient? yield;
+  String cookTime;
+  String prepTime;
+  String yield;
   RecipeDifficulty? difficulty;
-  String? creator;
-  Image? image;
+  String creator;
+  Image image;
   List<Ingredient> ingredients;
   List<String> directions;
 
   Recipe({
     required this.name,
-    this.cookTime,
-    this.prepTime,
-    this.yield,
+    this.cookTime = '',
+    this.prepTime = '',
+    this.yield = '',
     this.difficulty,
-    this.creator,
-    this.image,
+    this.creator = '',
+    this.image = defaultImage,
     required this.ingredients,
     required this.directions
   });
@@ -52,7 +58,7 @@ List<Recipe> recipes = [
   Recipe(
     name: 'Shakshuka',
     cookTime: '30 minutes',
-    yield: Ingredient(quantity: 4, unit: 'servings'),
+    yield: '4 Servings',
     difficulty: RecipeDifficulty.easy,
     creator: 'Rachel Ray',
     image: Image.network('https://food.fnr.sndimg.com/content/dam/images/food/fullset/2019/2/0/TM2808_Shakshuka.jpg.rend.hgtvcom.826.620.suffix/1552666959593.jpeg'),
@@ -93,7 +99,7 @@ List<Recipe> recipes = [
     name: 'Vanilla Cake',
     cookTime: '30 minutes',
     prepTime: '30 minutes',
-    yield: Ingredient(quantity: 2, unit: '9-inch', ingredient: 'cakes'),
+    yield: 'Two 9-inch Cakes',
     difficulty: RecipeDifficulty.easy,
     creator: 'Food Network Magazine',
     image: Image.network('https://food.fnr.sndimg.com/content/dam/images/food/fullset/2012/12/20/2/FNM_010113-Basic-Vanilla_s4x3.jpg.rend.hgtvcom.826.620.suffix/1371613590018.jpeg'),
