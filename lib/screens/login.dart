@@ -5,6 +5,7 @@ import 'package:get/instance_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:shakshuka/services/auth_provider.dart';
 import 'package:get/get.dart';
+import 'package:shakshuka/widgets/loadding_view.dart';
 
 import '../main.dart';
 
@@ -39,7 +40,7 @@ class _LoginState extends State<Login> {
         children: <Widget>[
           Padding(
               padding: const EdgeInsets.all(20),
-              child: Image.asset("res/img/google.png")),
+              child: Image.asset("res/img/shaksuka.png")),
           const SizedBox(
             height: 20,
           ),
@@ -55,8 +56,14 @@ class _LoginState extends State<Login> {
                       MaterialPageRoute(builder: (context) => const Home()));
                 }
               },
+              child: Image.asset("img/google_login.jpg"),
             ),
-          )
+          ),
+          Positioned(
+            child: authProvider.status == Status.authenticating
+                ? LoadingView()
+                : const SizedBox.shrink(),
+          ),
         ],
       ),
     );
