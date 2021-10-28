@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shakshuka/widgets/add_recipe.dart';
 
 class AllRecipes extends StatelessWidget {
   const AllRecipes({Key? key}) : super(key: key);
@@ -20,7 +21,8 @@ class AllRecipes extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            // Add your onPressed code here!
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const AddRecipe()));
           },
           child: const Icon(Icons.navigation),
           backgroundColor: Colors.green,
