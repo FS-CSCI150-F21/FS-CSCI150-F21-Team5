@@ -38,32 +38,51 @@ class _LoginState extends State<Login> {
       backgroundColor: Colors.white,
       body: Column(
         children: <Widget>[
-          Padding(
-              padding: const EdgeInsets.all(20),
-              child: Image.asset("res/img/shaksuka.png")),
-          const SizedBox(
-            height: 20,
+          Expanded(
+            child: Container(),
           ),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            // when the image is pressed it will call handelGoogleSignIn so that the user can provider their credientials
-            // auth_providers.dart in the services folder will handel all the logic for signIn and registration
-            child: GestureDetector(
-              onTap: () async {
-                bool isSuccess = await authProvider.handelGoogleSignIn();
-                if (isSuccess) {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => const Home()));
-                }
-              },
-              child: Image.asset("img/google_login.jpg"),
-            ),
-          ),
-          Positioned(
-            child: authProvider.status == Status.authenticating
-                ? LoadingView()
-                : const SizedBox.shrink(),
-          ),
+          Card(
+              borderOnForeground: true,
+              child: Column(
+                children: [
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      textStyle: const TextStyle(fontSize: 20),
+                    ),
+                    onPressed: () async {
+                      bool isSuccess = await authProvider.handelGoogleSignIn();
+                      if (isSuccess) {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Home()));
+                      }
+                    },
+                    child: const Text('Log in with Google'),
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      textStyle: const TextStyle(fontSize: 20),
+                    ),
+                    onPressed: null,
+                    child: const Text('Log in with Apple'),
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      textStyle: const TextStyle(fontSize: 20),
+                    ),
+                    onPressed: null,
+                    child: const Text('Log in Email'),
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      textStyle: const TextStyle(fontSize: 20),
+                    ),
+                    onPressed: null,
+                    child: const Text('Register with Email'),
+                  ),
+                ],
+              )),
         ],
       ),
     );
