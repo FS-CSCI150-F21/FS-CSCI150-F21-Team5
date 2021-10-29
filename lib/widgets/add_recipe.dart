@@ -6,14 +6,36 @@ class AddRecipe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
         body: CustomScrollView(
       slivers: <Widget>[
-        SliverAppBar(
+        const SliverAppBar(
           expandedHeight: 80,
           flexibleSpace: FlexibleSpaceBar(
             title: Text('Recipes'),
           ),
+        ),
+        SliverList(
+          delegate: SliverChildListDelegate([
+            Container(
+              margin: EdgeInsets.all(24),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('Add Name', style: TextStyle(fontSize: 22)),
+                    _buildName(),
+                    SizedBox(height: 16),
+                    ElevatedButton(
+                      child: Text('Submit'),
+                      onPressed: _submit,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ]),
         ),
       ],
     ));
