@@ -1,18 +1,27 @@
 {
   "project_info": {
     "project_number": "416547037704",
+    "firebase_url": "https://shakshuka-585e5-default-rtdb.firebaseio.com",
     "project_id": "shakshuka-585e5",
     "storage_bucket": "shakshuka-585e5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:416547037704:android:18d0e41fa2ce9b1331e7bd",
+        "mobilesdk_app_id": "1:416547037704:android:39d307c75b3020f531e7bd",
         "android_client_info": {
-          "package_name": "com.example.shakshuka"
+          "package_name": "com.team5.shakshuka"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "416547037704-j0ko3p8rgs7eucudggp86pgba1h951em.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.team5.shakshuka",
+            "certificate_hash": "3a292866dd25da614d86e1ef0ac4e0dbaedf049b"
+          }
+        },
         {
           "client_id": "416547037704-ra5362e0at8lqb6nuq16idrsg8el1hbe.apps.googleusercontent.com",
           "client_type": 3

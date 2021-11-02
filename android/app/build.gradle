@@ -44,8 +44,8 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.shakshuka"
-        minSdkVersion 16
+        applicationId "com.team5.shakshuka"
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -69,3 +69,5 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:28.4.1') // Firebase BOM plugin
     implementation 'com.google.firebase:firebase-analytics-ktx' // Adds the dependency for the Firebase SDK for Google Analytics
 }
+
+apply plugin: 'com.google.gms.google-services'
