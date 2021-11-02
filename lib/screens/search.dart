@@ -8,16 +8,10 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: const Color(0xfff8f8f8),
-        padding: const EdgeInsets.all(8.0),
-        margin: const EdgeInsets.all(16.0),
-        child: const TextField(),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(400),
-            border: Border.all(
-                color: Colors.purple, width: 1, style: BorderStyle.solid)),
-      ),
-    );
+        body: Container(
+            color: const Color(0x00000000),
+            padding: const EdgeInsets.all(8.0),
+            margin: const EdgeInsets.all(16.0),
+            child: const TextField()));
   }
 }
