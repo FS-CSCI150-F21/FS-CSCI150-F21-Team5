@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'recipe.dart';
 import 'recipe_card.dart';
+
+
+import 'screens/home_page.dart';
+import 'screens/recipe_page.dart';
+import 'screens/grocery_page.dart';
+import 'screens/search_page.dart';
+
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,10 +72,10 @@ class AppWrapper extends StatefulWidget {
 class _AppWrapperState extends State<AppWrapper> {
   int _selectedIndex = 0;
 
-  // this is the list of pages the bottom navigation bar will address
+  // this is the list of screens the bottom navigation bar will address
   static const List<Widget> _widgetOptions = <Widget>[
     Home(),
-    RecipeCardPage(),
+    RecipePage(),
     GroceryPage(),
     SearchPage(),
   ];
@@ -256,3 +264,4 @@ class SearchPage extends StatelessWidget {
     );
   }
 }
+
