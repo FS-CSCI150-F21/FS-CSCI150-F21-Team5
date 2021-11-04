@@ -56,9 +56,8 @@ class _AddRecipeState extends State<AddRecipe> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
+            SizedBox(
                 width: 280,
-                padding: EdgeInsets.all(10.0),
                 child: TextField(
                   controller: textFieldValueHolder,
                   autocorrect: true,
