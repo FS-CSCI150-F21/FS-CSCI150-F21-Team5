@@ -5,7 +5,7 @@ import 'package:shakshuka/main.dart';
 import 'package:shakshuka/screens/all_recipes.dart';
 import 'package:shakshuka/services/auth_provider.dart';
 
-import 'login.dart';
+import '../screens/login.dart';
 
 // * this is where the app will first load into
 //  This class checks for users current state if they are signed in then it will redirect them to the Home screen
