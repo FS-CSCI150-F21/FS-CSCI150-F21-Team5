@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'recipe.dart';
 import 'recipe_card.dart';
+import 'screens/search.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -69,7 +70,7 @@ class _AppWrapperState extends State<AppWrapper> {
     Home(),
     RecipeCardPage(),
     GroceryPage(),
-    SearchPage(),
+    Search(),
   ];
 
   void _onItemTapped(int index) {
@@ -239,20 +240,5 @@ class GroceryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset('res/img/shakshuka.jpg');
-  }
-}
-
-class SearchPage extends StatelessWidget {
-  const SearchPage({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Colors.grey[300],
-        padding: EdgeInsets.all(8.0),
-        margin: EdgeInsets.all(16.0),
-        child: TextField(),
-      ),
-    );
   }
 }

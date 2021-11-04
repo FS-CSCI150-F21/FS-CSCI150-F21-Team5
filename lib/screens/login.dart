@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:shakshuka/services/auth_provider.dart';
 import 'package:get/get.dart';
 import 'package:shakshuka/widgets/loadding_view.dart';
+import 'search.dart';
 
 import '../main.dart';
 
@@ -89,7 +90,7 @@ class _LoginState extends State<Login> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const SearchPage()))
+                              builder: (context) => const Search()))
                     },
                     child: const Text('Secret Portal'),
                   ),
