@@ -22,17 +22,26 @@ class _SearchState extends State<Search> {
             height: 100,
             padding: const EdgeInsets.fromLTRB(30.0, 50.0, 0.0, 0.0),
             child: Row(
-              children: const [
-                Text(
+              children: [
+                const Text(
                   "Search",
                   style: TextStyle(fontSize: 50, color: Colors.white),
                   textAlign: TextAlign.left,
                 ),
+                Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                        icon: const Icon(Icons.person),
+                        color: Colors.orange,
+                        onPressed: () {}))
               ],
             ),
           ),
           Container(
-            margin: const EdgeInsets.all(40.0),
+            margin: const EdgeInsets.all(30.0),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
