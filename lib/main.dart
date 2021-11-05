@@ -249,8 +249,8 @@ class SearchPage extends StatelessWidget {
     return Scaffold(
       body: Container(
         color: Colors.grey[300],
-        padding: EdgeInsets.all(8.0),
-        margin: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8.0),
+        margin: const EdgeInsets.all(16.0),
         child: TextField(),
       ),
     );

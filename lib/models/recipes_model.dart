@@ -1,13 +1,13 @@
 import 'package:duration/duration.dart';
 
-enum RecipeType {
+enum RecipeTag {
   food,
   drink,
 }
 
 class RecipeModel {
   final String id;
-  final RecipeType type;
+  final List<RecipeTag> type;
   final String name;
   final Duration duration;
   final List<String> ingredients;
@@ -29,7 +29,7 @@ class RecipeModel {
   RecipeModel.fromMap(Map<String, dynamic> data, String id)
       : this(
           id: id,
-          type: RecipeType.values[data['type']],
+          type: List<RecipeTag>.from([data['type']]),
           name: data['name'],
           duration: Duration(minutes: data['duration']),
           ingredients: List<String>.from(data['ingredients']),
