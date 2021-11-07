@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:shakshuka/screens/splash_screen.dart';
@@ -240,5 +243,125 @@ class GroceryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset('res/img/shakshuka.jpg');
+  }
+}
+
+class AlgoliaAPI {
+  static const platform = const MethodChannel('com.algolia/api');
+
+  Future<dynamic> search(String query) async {
+    try {
+      var response =
+          await platform.invokeMethod('search', ['instant_search', query]);
+      return jsonDecode(response);
+    } on PlatformException catch (_) {
+      return null;
+    }
+  }
+}
+
+class SearchHit {
+  final String name;
+  final String image;
+
+  SearchHit(this.name, this.image);
+
+  static SearchHit fromJson(Map<String, dynamic> json) {
+    return SearchHit(json['name'], json['image']);
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  AlgoliaAPI algoliaAPI = AlgoliaAPI();
+
+  String _searchText = "";
+  List<SearchHit> _hitsList = [];
+
+  TextEditingController _textFieldController = TextEditingController();
+
+  Future<void> _getSearchResult(String query) async {
+    var response = await algoliaAPI.search(query);
+    var hitsList = (response['hits'] as List).map((json) {
+      return SearchHit.fromJson(json);
+    }).toList();
+    setState(() {
+      _hitsList = hitsList;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Algolia & Flutter'),
+        ),
+        body: Column(children: <Widget>[
+          Container(
+              padding: const EdgeInsets.symmetric(horizontal: 1),
+              height: 44,
+              child: TextField(
+                controller: _textFieldController,
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Enter a search term',
+                    prefixIcon:
+                        const Icon(Icons.search, color: Colors.deepPurple),
+                    suffixIcon: _searchText.isNotEmpty
+                        ? IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _textFieldController.clear();
+                              });
+                            },
+                            icon: const Icon(Icons.clear),
+                          )
+                        : null),
+              )),
+          Expanded(
+              child: _hitsList.isEmpty
+                  ? const Center(child: Text('No results'))
+                  : ListView.builder(
+                      padding: const EdgeInsets.all(8),
+                      itemCount: _hitsList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                            height: 50,
+                            padding: const EdgeInsets.all(8),
+                            child: Row(children: <Widget>[
+                              Container(
+                                  width: 50,
+                                  child: Image.network(
+                                      '${_hitsList[index].image}')),
+                              const SizedBox(width: 10),
+                              Expanded(child: Text('${_hitsList[index].name}'))
+                            ]));
+                      }))
+        ]));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _textFieldController.addListener(() {
+      if (_searchText != _textFieldController.text) {
+        setState(() {
+          _searchText = _textFieldController.text;
+        });
+        _getSearchResult(_searchText);
+      }
+    });
+    _getSearchResult('');
+  }
+
+  @override
+  void dispose() {
+    _textFieldController.dispose();
+    super.dispose();
   }
 }
