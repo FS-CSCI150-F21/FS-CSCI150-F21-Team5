@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:duration_picker/duration_picker.dart';
+import 'package:shakshuka/services/recipe_util.dart';
 
 class AddRecipe extends StatefulWidget {
   const AddRecipe({Key? key}) : super(key: key);
@@ -77,7 +78,7 @@ class _AddRecipeState extends State<AddRecipe> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text(
-          'AppBar Demo',
+          'Create Recipe',
           style: TextStyle(
             color: Colors.black,
           ),
@@ -222,7 +223,7 @@ class _AddRecipeState extends State<AddRecipe> {
                 child: ReorderableListView(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
                   children: <Widget>[
                     for (int index = 0; index < data.length; index++)
                       Card(
@@ -268,7 +269,7 @@ class _AddRecipeState extends State<AddRecipe> {
                 child: ReorderableListView(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   children: <Widget>[
                     for (int index = 0; index < steps.length; index++)
                       Card(
@@ -290,6 +291,17 @@ class _AddRecipeState extends State<AddRecipe> {
                     });
                   },
                 ),
+              ),
+              SizedBox(
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: const Color.fromARGB(255, 199, 40, 13),
+                      padding: const EdgeInsets.all(12),
+                      textStyle: const TextStyle(fontSize: 22),
+                    ),
+                    child: const Text('Save'),
+                    onPressed: () => RecipeUtil().updateRecipe(
+                        titleFieldValueHolder.text.toString(), data, steps)),
               ),
             ],
           ),
