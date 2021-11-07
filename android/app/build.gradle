@@ -49,6 +49,7 @@ android {
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -68,11 +69,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation platform('com.google.firebase:firebase-bom:28.4.1') // Firebase BOM plugin
     implementation 'com.google.firebase:firebase-analytics-ktx' // Adds the dependency for the Firebase SDK for Google Analytics
-    // for Gradle version < 6.0, use the following instead
-    // implementation "com.algolia:algoliasearch-client-kotlin:1.+"
-    // Choose one of the following HTTP clients
-    implementation "com.algolia:algoliasearch-client-kotlin-jvm:1.12.0"
-    implementation "io.ktor:ktor-client-android:1.12.0"
+    implementation 'com.android.support:multidex:2.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

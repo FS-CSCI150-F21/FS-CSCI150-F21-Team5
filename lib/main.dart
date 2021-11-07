@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:algolia/algolia.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'recipe.dart';
 import 'recipe_card.dart';
 import 'screens/search.dart';
+
+class Application {
+  static const Algolia algolia = Algolia.init(
+    applicationId: 'Z8EU1ALAGI',
+    apiKey: '8bd48d86c46afa3f0e82d39c05396766',
+  );
+}
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
