@@ -1,130 +1,54 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+import 'package:shakshuka/widgets/splash_screen.dart';
+import 'package:shakshuka/services/auth_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-import 'screens/home_page.dart';
-import 'screens/recipe_page.dart';
-import 'screens/grocery_page.dart';
-import 'screens/search_page.dart';
-
-
-
-
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   //int _selectedIndex = 0;
-  runApp(const ShakshukaApp());
+  runApp(MyApp(
+    prefs: prefs,
+  ));
 }
 
+// TODO: Refactor Genric MyApp with proper name
+class MyApp extends StatelessWidget {
+  // intit states for firebase instance
+  final SharedPreferences prefs;
+  final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+  //require that that prefs be passed in when MyApp is called
+  MyApp({Key? key, required this.prefs}) : super(key: key);
 
-
-
-class ShakshukaApp extends StatelessWidget {
-  const ShakshukaApp({Key? key}) : super(key: key);
+  // with all values passed in we now intilize our auth provider with that data by shadowing the variables
+  // this will also help us determin the login state of the user in the splash screen
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Shakshuka',
-      /*theme: ThemeData(
-        // This is the theme of your application.
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.red,
-      ),*/
-      home: AppWrapper(),
-    );
-  }
-}
-
-
-
-
-class AppWrapper extends StatefulWidget {
-  const AppWrapper({Key? key}) : super(key: key);
-  @override
-  _AppWrapperState createState() => _AppWrapperState();
-}
-
-class _AppWrapperState extends State<AppWrapper> {
-  int _selectedIndex = 0;
-
-  // this is the list of screens the bottom navigation bar will address
-  static const List<Widget> _widgetOptions = <Widget>[
-    Home(),
-    RecipePage(),
-    GroceryPage(),
-    SearchPage(),
-  ];
-
-  void _onItemTapped(int index) {
-    setState((){
-      _selectedIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-
-      appBar: AppBar(
-        title: const Text(
-          'Shakshuka',
-          style: TextStyle(
-            fontSize: 24,
-            fontFamily: 'Roboto',
-            fontWeight: FontWeight.bold,
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider<AuthProvider>(
+            create: (_) => AuthProvider(
+              auth: FirebaseAuth.instance,
+              googleSignIn: GoogleSignIn(),
+              // ignore: unnecessary_this
+              prefs: this.prefs,
+              // ignore: unnecessary_this
+              db: this.firebaseFirestore,
+            ),
           ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.deepOrange[900],
-      ),
-
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-
-      //https://api.flutter.dev/flutter/material/BottomNavigationBar-class.html
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.deepOrange[900],
-        selectedItemColor: Colors.amber[600],
-        unselectedItemColor: Colors.white,
-        showUnselectedLabels: false,
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-
-        // background colors only change with "type: .shifting"
-        items: const <BottomNavigationBarItem>[
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-            //backgroundColor: Colors.deepOrange,
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu_book),
-            label: 'Recipes',
-            //backgroundColor: Colors.amber,
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.kitchen),
-            label: 'Grocery List',
-            //backgroundColor: Colors.purple,
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-            //backgroundColor: Colors.pink,
-          ),
-
         ],
-      ),
-    );
+        // this will return splash screen which will determin where to redirect useres based on login state
+        child: const MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Shakshuka',
+            home: SplashPage()));
   }
 }
