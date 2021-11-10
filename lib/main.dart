@@ -16,7 +16,7 @@ import 'recipe_card.dart';
 import 'screens/home_page.dart';
 import 'screens/recipe_page.dart';
 import 'screens/grocery_page.dart';
-import 'screens/search_page.dart';
+//import 'screens/search_page.dart';
 
 
 Future main() async {

@@ -53,7 +53,7 @@ class _SplashPageState extends State<SplashPage> {
         children: [
           //TODO: add proper image asset for splash screen
           Image.asset(
-            "res/img/sakshuka.png",
+            "res/img/shakshuka.png",
             width: 300,
             height: 300,
           ),
