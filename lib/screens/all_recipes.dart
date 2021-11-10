@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:shakshuka/models/dummy_data.dart';
 import '../widgets/add_recipe.dart';
 import '../widgets/recipe_card.dart';
+import '../widgets/full_recipe_view.dart';
 
 class AllRecipes extends StatelessWidget {
   const AllRecipes({Key? key}) : super(key: key);

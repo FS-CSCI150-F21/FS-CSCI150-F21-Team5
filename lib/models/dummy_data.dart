@@ -1,19 +1,5 @@
 import 'recipes_model.dart';
 
-RecipeModel defaultRecipe = const RecipeModel(
-    id: '003',
-    type: <RecipeTag>[RecipeTag.food],
-    name: 'name',
-    duration: Duration(microseconds: 1),
-    ingredients: <String>[
-      'ingredient'
-    ],
-    preparation: <String>[
-      'instruction'
-    ],
-    imageURL: 'https://prod-dairyqueen.dotcmscloud.com/dA/a5d07b7608/fileAsset/Loaded_A1_Steakhouse_Triple.png'
-);
-
 List<RecipeModel> dummyRecipeList = [
 
   const RecipeModel(
@@ -52,7 +38,7 @@ List<RecipeModel> dummyRecipeList = [
         'For naan, heat a griddle over high heat. Scatter a little water onto skillet and griddle the bread to blister, then flip. Brush bread with melted butter and cut into pieces/wide strips.',
         'Garnish eggs with dollops of yogurt if using, cilantro leaves and scallions. ',
       ],
-      imageURL: 'https://prod-dairyqueen.dotcmscloud.com/dA/a5d07b7608/fileAsset/Loaded_A1_Steakhouse_Triple.png',
+      imageURL: 'https://cdn.shopify.com/s/files/1/0429/6055/2098/articles/Untitled_design_1024x1024.png',
   ),
 
   const RecipeModel(
@@ -75,7 +61,7 @@ List<RecipeModel> dummyRecipeList = [
         'Whisk 3 cups flour, the baking powder and salt in a bowl until combined. Beat 2 sticks butter and the sugar in a large bowl with a mixer on medium-high speed until light and fluffy, about 3 minutes. Reduce the mixer speed to medium; beat in the eggs, one at a time, scraping down the bowl as needed. Beat in the vanilla. (The mixture may look separated at this point.) Beat in the flour mixture in 3 batches, alternating with the milk, beginning and ending with flour, until just smooth.',
         'Divide the batter between the prepared pans. Bake until the cakes are lightly golden on top and a toothpick inserted into the middle comes out clean, 30 to 35 minutes. Transfer to racks and let cool 10 minutes, then run a knife around the edge of the pans and turn the cakes out onto the racks to cool completely. Remove the parchment. Trim the tops of the cakes with a long serrated knife to make them level, if desired.',
       ],
-      imageURL: 'https://prod-dairyqueen.dotcmscloud.com/dA/a5d07b7608/fileAsset/Loaded_A1_Steakhouse_Triple.png'
+      imageURL: 'https://i.pinimg.com/originals/de/a6/63/dea6632d097c3d2873f26fea2f48a672.png'
   ),
 
   const RecipeModel(
