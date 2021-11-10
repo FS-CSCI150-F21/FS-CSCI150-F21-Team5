@@ -4,13 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/instance_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:shakshuka/screens/all_recipes.dart';
+import 'package:shakshuka/screens/sliver_test.dart';
 import 'package:shakshuka/services/auth_provider.dart';
 import 'package:get/get.dart';
-import 'package:shakshuka/widgets/loadding_view.dart';
+// import 'package:shakshuka/widgets/loadding_view.dart';
 
 import '../main.dart';
 
-// Login screen is where unregistered and signed out users will be direct so that they may insert their credientials
+// Login screen is where unregistered and signed out users will be direct so that they may insert their credentials
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -20,21 +21,21 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   @override
-  // if the statemangement logic says their was an error logining in it will display a sanckbar informing the user of the error
+  // if the state management logic says their was an error logging in it will display a snackbar informing the user of the error
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     switch (authProvider.status) {
       case Status.authenticateError:
-        Get.snackbar("Error", "Authetication failed");
+        Get.snackbar("Error", "Authentication failed");
         break;
       case Status.authenticateCanceled:
-        Get.snackbar("Error", "Authetication failed");
+        Get.snackbar("Error", "Authentication failed");
         break;
       default:
         break;
     }
     // the main ui elements of the login in screen
-    // TODO: refactor the code so that it is an elvated button that calls on handelGoogleSignIn
+    // TODO: refactor the code so that it is an elevated button that calls on handleGoogleSignIn
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(

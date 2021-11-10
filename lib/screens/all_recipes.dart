@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:shakshuka/widgets/add_recipe.dart';
+import '../widgets/add_recipe.dart';
+import '../widgets/recipe_card.dart';
 
 class AllRecipes extends StatelessWidget {
   const AllRecipes({Key? key}) : super(key: key);
@@ -9,9 +10,9 @@ class AllRecipes extends StatelessWidget {
   Widget build(BuildContext context) {
     // ignore: prefer_const_constructors
     return Scaffold(
-        body: const CustomScrollView(
+        body: CustomScrollView(
           slivers: <Widget>[
-            SliverAppBar(
+            const SliverAppBar(
               expandedHeight: 80,
               backgroundColor: Colors.white,
               flexibleSpace: FlexibleSpaceBar(
@@ -20,6 +21,21 @@ class AllRecipes extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.black,
                     )),
+              ),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                    return RecipeCard(
+
+                    );
+                    //   Container(
+                    //   height: 50,
+                    //   alignment: Alignment.center,
+                    //   color: Colors.deepOrange[100 * (index % 9)],
+                    //   child: Text('deepOrange $index'),
+                    // );
+                  }
               ),
             ),
           ],
