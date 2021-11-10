@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/src/provider.dart';
-import 'package:shakshuka/main.dart';
 import 'package:shakshuka/screens/all_recipes.dart';
-import 'package:shakshuka/screens/sliver_test.dart';
 import 'package:shakshuka/services/auth_provider.dart';
 
 import 'login.dart';
@@ -50,7 +48,7 @@ class _SplashPageState extends State<SplashPage> {
         children: [
           //TODO: add proper image asset for splash screen
           Image.asset(
-            "res/img/shakshuka.png",
+            "res/img/shakshuka.jpg",
             width: 300,
             height: 300,
           ),

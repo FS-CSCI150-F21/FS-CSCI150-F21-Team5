@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shakshuka/models/dummy_data.dart';
 import '../widgets/add_recipe.dart';
 import '../widgets/recipe_card.dart';
 
@@ -25,17 +26,13 @@ class AllRecipes extends StatelessWidget {
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
-                      (context, index) {
+                (context, index) {
+                  while(index < dummyRecipeList.length) {
                     return RecipeCard(
-
+                      recipe: dummyRecipeList[index]
                     );
-                    //   Container(
-                    //   height: 50,
-                    //   alignment: Alignment.center,
-                    //   color: Colors.deepOrange[100 * (index % 9)],
-                    //   child: Text('deepOrange $index'),
-                    // );
                   }
+                }
               ),
             ),
           ],
