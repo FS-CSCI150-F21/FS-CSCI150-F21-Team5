@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:shakshuka/widgets/loadding_view.dart';
 
 import '../main.dart';
+import 'all_recipes.dart';
 
 // Login screen is where unregistered and signed out users will be direct so that they may insert their credientials
 class Login extends StatefulWidget {
@@ -56,7 +57,7 @@ class _LoginState extends State<Login> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Home()));
+                                builder: (context) => const AllRecipes()));
                       }
                     },
                     child: const Text('Log in with Google'),
