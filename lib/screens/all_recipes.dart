@@ -27,14 +27,10 @@ class AllRecipes extends StatelessWidget {
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  // check if index exists before trying to access it
-                  while(index < dummyRecipeList.length) {
-                    return RecipeCard(
-                      recipe: dummyRecipeList[index]
-                    );
-                  }
-                }
+                    (context, index) => RecipeCard(
+                      recipe: dummyRecipeList[index],
+                    ),
+                childCount: dummyRecipeList.length,
               ),
             ),
           ],
