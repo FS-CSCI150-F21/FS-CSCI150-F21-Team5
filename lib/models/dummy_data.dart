@@ -134,4 +134,102 @@ List<RecipeModel> dummyRecipeList = [
       imageURL: 'https://prod-dairyqueen.dotcmscloud.com/dA/a5d07b7608/fileAsset/Loaded_A1_Steakhouse_Triple.png'
   ),
 
+  const RecipeModel(
+      id: '007',
+      type: <RecipeTag>[RecipeTag.food],
+      name: 'name',
+      duration: Duration(microseconds: 1),
+      ingredients: <String>[
+        'ingredient'
+      ],
+      preparation: <String>[
+        'instruction'
+      ],
+      imageURL: 'https://prod-dairyqueen.dotcmscloud.com/dA/a5d07b7608/fileAsset/Loaded_A1_Steakhouse_Triple.png'
+  ),
+
+  const RecipeModel(
+      id: '008',
+      type: <RecipeTag>[RecipeTag.food],
+      name: 'name',
+      duration: Duration(microseconds: 1),
+      ingredients: <String>[
+        'ingredient'
+      ],
+      preparation: <String>[
+        'instruction'
+      ],
+      imageURL: 'https://prod-dairyqueen.dotcmscloud.com/dA/a5d07b7608/fileAsset/Loaded_A1_Steakhouse_Triple.png'
+  ),
+
+  const RecipeModel(
+      id: '009',
+      type: <RecipeTag>[RecipeTag.food],
+      name: 'name',
+      duration: Duration(microseconds: 1),
+      ingredients: <String>[
+        'ingredient'
+      ],
+      preparation: <String>[
+        'instruction'
+      ],
+      imageURL: 'https://prod-dairyqueen.dotcmscloud.com/dA/a5d07b7608/fileAsset/Loaded_A1_Steakhouse_Triple.png'
+  ),
+
+  const RecipeModel(
+      id: '010',
+      type: <RecipeTag>[RecipeTag.food],
+      name: 'name',
+      duration: Duration(microseconds: 1),
+      ingredients: <String>[
+        'ingredient'
+      ],
+      preparation: <String>[
+        'instruction'
+      ],
+      imageURL: 'https://prod-dairyqueen.dotcmscloud.com/dA/a5d07b7608/fileAsset/Loaded_A1_Steakhouse_Triple.png'
+  ),
+
+  const RecipeModel(
+      id: '011',
+      type: <RecipeTag>[RecipeTag.food],
+      name: 'name',
+      duration: Duration(microseconds: 1),
+      ingredients: <String>[
+        'ingredient'
+      ],
+      preparation: <String>[
+        'instruction'
+      ],
+      imageURL: 'https://prod-dairyqueen.dotcmscloud.com/dA/a5d07b7608/fileAsset/Loaded_A1_Steakhouse_Triple.png'
+  ),
+
+  const RecipeModel(
+      id: '012',
+      type: <RecipeTag>[RecipeTag.food],
+      name: 'name',
+      duration: Duration(microseconds: 1),
+      ingredients: <String>[
+        'ingredient'
+      ],
+      preparation: <String>[
+        'instruction'
+      ],
+      imageURL: 'https://prod-dairyqueen.dotcmscloud.com/dA/a5d07b7608/fileAsset/Loaded_A1_Steakhouse_Triple.png'
+  ),
+
+  const RecipeModel(
+      id: '013',
+      type: <RecipeTag>[RecipeTag.food],
+      name: 'name',
+      duration: Duration(microseconds: 1),
+      ingredients: <String>[
+        'ingredient'
+      ],
+      preparation: <String>[
+        'instruction'
+      ],
+      imageURL: 'https://prod-dairyqueen.dotcmscloud.com/dA/a5d07b7608/fileAsset/Loaded_A1_Steakhouse_Triple.png'
+  ),
+
 ];

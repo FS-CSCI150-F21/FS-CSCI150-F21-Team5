@@ -27,6 +27,7 @@ class AllRecipes extends StatelessWidget {
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
+                  // check if index exists before trying to access it
                   while(index < dummyRecipeList.length) {
                     return RecipeCard(
                       recipe: dummyRecipeList[index]
@@ -46,7 +47,7 @@ class AllRecipes extends StatelessWidget {
           icon: const Icon(Icons.add),
           backgroundColor: const Color.fromARGB(255, 199, 40, 13),
           shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15.0)),
+            borderRadius: BorderRadius.all(Radius.circular(16.0)),
           ),
         ));
   }
