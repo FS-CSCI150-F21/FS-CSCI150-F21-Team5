@@ -255,7 +255,7 @@ class GroceryPage extends StatelessWidget {
 }
 
 class AlgoliaAPI {
-  static const platform = const MethodChannel('com.algolia/api');
+  static const platform = MethodChannel('com.algolia/api');
 
   Future<dynamic> search(String query) async {
     try {
@@ -342,7 +342,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             height: 50,
                             padding: const EdgeInsets.all(8),
                             child: Row(children: <Widget>[
-                              Container(
+                              SizedBox(
                                   width: 50,
                                   child: Image.network(
                                       '${_hitsList[index].image}')),
