@@ -75,15 +75,6 @@ class _AddRecipeState extends State<AddRecipe> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text(
-          'Create Recipe',
-          style: TextStyle(
-            color: Colors.black,
-          ),
-        ),
-      ),
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onPanDown: (_) {
