@@ -126,23 +126,31 @@ class _AddRecipeState extends State<AddRecipe> {
                 ),
               ),
               const SizedBox(
-                height: 30,
+                height: 50,
+                width: double.infinity,
+                child: Align(
+                  alignment: Alignment(-0.9, 1.0),
+                  child: Text(
+                    'Image',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+                  ),
+                ),
               ),
               SizedBox(
-                height: 160,
-                width: 160,
+                height: 360,
+                width: 360,
                 child: image != null
                     ? Image.file(
                         image!,
-                        width: 160,
-                        height: 160,
+                        width: 360,
+                        height: 360,
                       )
                     : const FlutterLogo(
                         size: 160,
                       ),
               ),
               SizedBox(
-                width: 220,
+                width: 325,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: const Color.fromARGB(255, 199, 40, 13),
@@ -172,6 +180,17 @@ class _AddRecipeState extends State<AddRecipe> {
                 },
                 snapToMins: 5.0,
               )),
+              const SizedBox(
+                height: 50,
+                width: double.infinity,
+                child: Align(
+                  alignment: Alignment(-0.9, 1.0),
+                  child: Text(
+                    'Ingredients',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
               const SizedBox(height: 30),
               SizedBox(
                   width: 325,
@@ -226,6 +245,17 @@ class _AddRecipeState extends State<AddRecipe> {
                       data.insert(newIndex, item);
                     });
                   },
+                ),
+              ),
+              const SizedBox(
+                height: 50,
+                width: double.infinity,
+                child: Align(
+                  alignment: Alignment(-0.9, 1.0),
+                  child: Text(
+                    'Steps',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+                  ),
                 ),
               ),
               const SizedBox(height: 30),
@@ -284,23 +314,24 @@ class _AddRecipeState extends State<AddRecipe> {
                   },
                 ),
               ),
-              const SizedBox(height: 30),
-              SizedBox(
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: const Color.fromARGB(255, 199, 40, 13),
-                      padding: const EdgeInsets.all(12),
-                      textStyle: const TextStyle(fontSize: 22),
-                    ),
-                    child: const Text('Save'),
-                    onPressed: () => RecipeUtil().updateRecipe(
-                        titleFieldValueHolder.text.toString(),
-                        data,
-                        steps,
-                        image)),
-              ),
+              const SizedBox(height: 70),
             ],
           ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => RecipeUtil().updateRecipe(
+          titleFieldValueHolder.text.toString(),
+          data,
+          steps,
+          image,
+          _duration,
+        ),
+        label: const Text('Add'),
+        icon: const Icon(Icons.add),
+        backgroundColor: const Color.fromARGB(255, 199, 40, 13),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15.0)),
         ),
       ),
     );
