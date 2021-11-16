@@ -44,11 +44,12 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.shakshuka"
-        minSdkVersion 16
+        applicationId "com.team5.shakshuka"
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -68,4 +69,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation platform('com.google.firebase:firebase-bom:28.4.1') // Firebase BOM plugin
     implementation 'com.google.firebase:firebase-analytics-ktx' // Adds the dependency for the Firebase SDK for Google Analytics
+    implementation 'com.android.support:multidex:2.0.1'
 }
+
+apply plugin: 'com.google.gms.google-services'
