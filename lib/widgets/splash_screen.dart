@@ -31,7 +31,7 @@ class _SplashPageState extends State<SplashPage> {
     bool isLoggedIn = await authProvider.isLoggedIn();
     if (isLoggedIn) {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const AllRecipes()));
+          context, MaterialPageRoute(builder: (context) => /*const*/ AllRecipes()));
       return;
     }
     Navigator.pushReplacement(
