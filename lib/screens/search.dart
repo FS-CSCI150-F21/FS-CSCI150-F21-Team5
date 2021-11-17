@@ -2,18 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:algolia/algolia.dart';
 
-// Juan is building this
-
-class Search extends StatefulWidget {
-  const Search({Key? key}) : super(key: key);
+class OldSearch extends StatefulWidget {
+  const OldSearch({Key? key}) : super(key: key);
 
   @override
-  _SearchState createState() => _SearchState();
+  _OldSearchState createState() => _OldSearchState();
 }
 
-class _SearchState extends State<Search> {
+class _OldSearchState extends State<OldSearch> {
   @override
-  // if the statemangement logic says their was an error logining in it will display a sanckbar informing the user of the error
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
@@ -58,14 +55,14 @@ class _SearchState extends State<Search> {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class Search extends StatefulWidget {
+  const Search({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _SearchState createState() => _SearchState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _SearchState extends State<Search> {
   final TextEditingController _searchText = TextEditingController(text: "");
   List<AlgoliaObjectSnapshot> _results = [];
   bool _searching = false;
@@ -93,28 +90,32 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Algolia Search"),
-      ),
+      backgroundColor: Colors.black,
       body: Container(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(40.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text("Search"),
+            const Text("Search",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 40,
+                )),
             TextField(
               controller: _searchText,
-              decoration:
-                  const InputDecoration(hintText: "Search query here..."),
+              decoration: const InputDecoration(
+                  hintText: "Search query here...",
+                  filled: true,
+                  fillColor: Colors.white),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 FlatButton(
-                  color: Colors.blue,
+                  color: Colors.white,
                   child: const Text(
                     "Search",
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.black),
                   ),
                   onPressed: _search,
                 ),
@@ -135,19 +136,31 @@ class _MyHomePageState extends State<MyHomePage> {
                             AlgoliaObjectSnapshot snap = _results[index];
 
                             return ListTile(
-                              leading: CircleAvatar(
-                                child: Text(
-                                  (index + 1).toString(),
+                                leading: CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  child: Text((index + 1).toString(),
+                                      style:
+                                          const TextStyle(color: Colors.black)),
                                 ),
-                              ),
-                              title: Text(snap.data["name"]),
-                            );
+                                title: Text(snap.data["name"],
+                                    style:
+                                        const TextStyle(color: Colors.white)),
+                                subtitle: Text(
+                                    snap.data["ingredients"][0] +
+                                        ", " +
+                                        snap.data["ingredients"][1] +
+                                        ", " +
+                                        snap.data["ingredients"][2] +
+                                        ", " +
+                                        "...",
+                                    style:
+                                        const TextStyle(color: Colors.white)));
                           },
                         ),
             ),
           ],
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }

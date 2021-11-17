@@ -90,7 +90,7 @@ class _LoginState extends State<Login> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const MyHomePage()))
+                              builder: (context) => const Search()))
                     },
                     child: const Text('Secret Portal'),
                   ),

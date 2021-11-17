@@ -25,7 +25,6 @@ Future main() async {
   ));
 }
 
-// TODO: Refactor Genric MyApp with proper name
 class MyApp extends StatelessWidget {
   // intit states for firebase instance
   final SharedPreferences prefs;
