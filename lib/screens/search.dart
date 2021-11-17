@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:algolia/algolia.dart';
 
 // Juan is building this
 
@@ -53,6 +54,100 @@ class _SearchState extends State<Search> {
         ],
       ),
       backgroundColor: Colors.black,
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final TextEditingController _searchText = TextEditingController(text: "");
+  List<AlgoliaObjectSnapshot> _results = [];
+  bool _searching = false;
+
+  _search() async {
+    setState(() {
+      _searching = true;
+    });
+
+    Algolia algolia = const Algolia.init(
+      applicationId: '15SQZUJ0VB',
+      apiKey: '98479aad0605e1d0239def199086fd45',
+    );
+
+    AlgoliaQuery query = algolia.instance.index('recipes');
+    query = query.query(_searchText.text);
+
+    _results = (await query.getObjects()).hits;
+
+    setState(() {
+      _searching = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Algolia Search"),
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            const Text("Search"),
+            TextField(
+              controller: _searchText,
+              decoration:
+                  const InputDecoration(hintText: "Search query here..."),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                FlatButton(
+                  color: Colors.blue,
+                  child: const Text(
+                    "Search",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: _search,
+                ),
+              ],
+            ),
+            Expanded(
+              child: _searching == true
+                  ? const Center(
+                      child: Text("Searching, please wait..."),
+                    )
+                  : _results.isEmpty
+                      ? const Center(
+                          child: Text("No results found."),
+                        )
+                      : ListView.builder(
+                          itemCount: _results.length,
+                          itemBuilder: (BuildContext ctx, int index) {
+                            AlgoliaObjectSnapshot snap = _results[index];
+
+                            return ListTile(
+                              leading: CircleAvatar(
+                                child: Text(
+                                  (index + 1).toString(),
+                                ),
+                              ),
+                              title: Text(snap.data["name"]),
+                            );
+                          },
+                        ),
+            ),
+          ],
+        ),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
