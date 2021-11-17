@@ -4,6 +4,14 @@ import 'package:shakshuka/models/dummy_data.dart';
 import '../widgets/add_recipe.dart';
 import '../widgets/recipe_card.dart';
 import '../widgets/full_recipe_view.dart';
+import '../services/recipe_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+
+// get recipes
+var myUid = RecipeUtil().getUid();
+final String stuff = FirebaseFirestore.instance.collection('myRecipes').where("uid", "==", myUid).toString();
+
 
 class AllRecipes extends StatelessWidget {
   const AllRecipes({Key? key}) : super(key: key);

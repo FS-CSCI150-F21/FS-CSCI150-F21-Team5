@@ -18,4 +18,13 @@ class RecipeUtil {
       },
     );
   }
+
+  Future<String> getUid() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    final User user = auth.currentUser!;
+    final uid = user.uid;
+    return uid.toString();
+  }
+
+
 }
