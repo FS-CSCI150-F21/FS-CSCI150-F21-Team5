@@ -82,18 +82,6 @@ class _LoginState extends State<Login> {
                     onPressed: null,
                     child: const Text('Register with Email'),
                   ),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      textStyle: const TextStyle(fontSize: 20),
-                    ),
-                    onPressed: () => {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Search()))
-                    },
-                    child: const Text('Secret Portal'),
-                  ),
                 ],
               )),
         ],
