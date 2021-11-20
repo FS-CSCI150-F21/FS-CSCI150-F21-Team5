@@ -7,6 +7,7 @@ import 'package:shakshuka/screens/all_recipes.dart';
 import 'package:shakshuka/services/auth_provider.dart';
 import 'package:get/get.dart';
 import 'package:shakshuka/widgets/loadding_view.dart';
+import 'search.dart';
 
 import '../main.dart';
 
