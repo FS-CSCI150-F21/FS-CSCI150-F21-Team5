@@ -7,13 +7,16 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
-import 'package:shakshuka/screens/splash_screen.dart';
+import 'package:shakshuka/widgets/splash_screen.dart';
 import 'package:shakshuka/services/auth_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'recipe.dart';
 import 'recipe_card.dart';
 import 'screens/search.dart';
+
+
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,6 +60,7 @@ class MyApp extends StatelessWidget {
             home: SplashPage()));
   }
 }
+
 
 class AppWrapper extends StatefulWidget {
   const AppWrapper({Key? key}) : super(key: key);
@@ -244,3 +248,4 @@ class GroceryPage extends StatelessWidget {
     return Image.asset('res/img/shakshuka.jpg');
   }
 }
+
