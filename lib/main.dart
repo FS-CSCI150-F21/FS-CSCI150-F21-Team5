@@ -16,12 +16,10 @@ import 'recipe.dart';
 import 'recipe_card.dart';
 import 'screens/search.dart';
 
-
 import 'screens/home_page.dart';
 import 'screens/recipe_page.dart';
 import 'screens/grocery_page.dart';
-import 'screens/search_page.dart';
-
+import 'screens/search.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -267,5 +265,3 @@ class SearchPage extends StatelessWidget {
     );
   }
 }
-
-
