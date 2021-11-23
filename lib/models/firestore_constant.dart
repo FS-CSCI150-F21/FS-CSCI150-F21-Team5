@@ -1,6 +1,6 @@
 // the classes is a class to model how a user should be entered into our database
 // TODO: refactor FirestoreConstants to FirestoreUserModel
-class FirestoreConstants {
+class FirestoreUserConstants {
   static const pathUserCollection = "Users";
   static const nickname = "nickname";
   static const id = "id";

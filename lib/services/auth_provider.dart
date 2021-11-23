@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shakshuka/models/user_model.dart';
-import 'package:shakshuka/services/firestore_constant.dart';
+import 'package:shakshuka/models/firestore_constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // this enum will be used to track the login state of the user
@@ -38,7 +38,7 @@ class AuthProvider extends ChangeNotifier {
   });
   // this is used to fetch the Firebase User Id from the local shared preferences
   String? getUserFirebaseId() {
-    return prefs.getString(FirestoreConstants.id);
+    return prefs.getString(FirestoreUserConstants.id);
   }
 
   // will check if a users is signed in
@@ -47,7 +47,7 @@ class AuthProvider extends ChangeNotifier {
     bool isLoggedIn = await googleSignIn.isSignedIn();
     // A user is only consideried signedIn if both local shared prefrences and the googleSignIn agree on useres signed in state
     if (isLoggedIn &&
-        prefs.getString(FirestoreConstants.id)?.isNotEmpty == true) {
+        prefs.getString(FirestoreUserConstants.id)?.isNotEmpty == true) {
       return true;
     } else {
       return false;
@@ -74,8 +74,8 @@ class AuthProvider extends ChangeNotifier {
       // when the firebase user has been assigned we can query our database for the user
       if (firebaseUser != null) {
         final QuerySnapshot result = await db
-            .collection(FirestoreConstants.pathUserCollection)
-            .where(FirestoreConstants.id, isEqualTo: firebaseUser.uid)
+            .collection(FirestoreUserConstants.pathUserCollection)
+            .where(FirestoreUserConstants.id, isEqualTo: firebaseUser.uid)
             .get();
         // we bind the results of that query to document for addiational checks
         final List<DocumentSnapshot> document = result.docs;
@@ -83,30 +83,30 @@ class AuthProvider extends ChangeNotifier {
         if (document.isEmpty) {
           // If the user does not exsit then we add them to our database as a new user
           db
-              .collection(FirestoreConstants.pathUserCollection)
+              .collection(FirestoreUserConstants.pathUserCollection)
               .doc(firebaseUser.uid)
               .set({
-            FirestoreConstants.nickname: firebaseUser.displayName,
-            FirestoreConstants.photoUrl: firebaseUser.photoURL,
-            FirestoreConstants.id: firebaseUser.uid,
+            FirestoreUserConstants.nickname: firebaseUser.displayName,
+            FirestoreUserConstants.photoUrl: firebaseUser.photoURL,
+            FirestoreUserConstants.id: firebaseUser.uid,
             'createdAt': DateTime.now().microsecondsSinceEpoch.toString()
           });
           User? currentUser = firebaseUser;
-          await prefs.setString(FirestoreConstants.id, currentUser.uid);
+          await prefs.setString(FirestoreUserConstants.id, currentUser.uid);
           await prefs.setString(
-              FirestoreConstants.nickname, currentUser.displayName ?? "");
+              FirestoreUserConstants.nickname, currentUser.displayName ?? "");
           await prefs.setString(
-              FirestoreConstants.photoUrl, currentUser.photoURL ?? "");
+              FirestoreUserConstants.photoUrl, currentUser.photoURL ?? "");
         } // if the user does exsit in our db then we can set our local shared prefrences to be that firebase user
         // this stores their Creds locally
         else {
           DocumentSnapshot documentSnapshot = document[0];
           UserModel userModel = UserModel.fromDocument(documentSnapshot);
-          await prefs.setString(FirestoreConstants.id, userModel.id);
+          await prefs.setString(FirestoreUserConstants.id, userModel.id);
           await prefs.setString(
-              FirestoreConstants.nickname, userModel.nickname);
+              FirestoreUserConstants.nickname, userModel.nickname);
           await prefs.setString(
-              FirestoreConstants.photoUrl, userModel.photoUrl);
+              FirestoreUserConstants.photoUrl, userModel.photoUrl);
         }
         // after we either sign them in or register them we change our state to autheticated and notify any listeners that are waiting for a result
         _status = Status.authenticated;
