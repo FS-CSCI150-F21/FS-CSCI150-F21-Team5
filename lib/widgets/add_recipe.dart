@@ -42,13 +42,13 @@ class _AddRecipeState extends State<AddRecipe> {
     );
   }
 
-  Future<void>? _pickImage(ImageSource source) async {
-    final image = await ImagePicker().pickImage(source: source);
+  // Future<void>? _pickImage(ImageSource source) async {
+  //     final image = await ImagePicker().pickImage(source: source);
 
-    if (image == null) return;
-    final tempImage = File(image.path);
-    setState(() => this.image = tempImage);
-  }
+  //     if (image == null) return;
+  //     final tempImage = File(image.path);
+  //     setState(() => this.image = tempImage);
+  //   }
 
   void addIngredient() {
     if (textFieldValueHolder.text == '') {
@@ -156,7 +156,7 @@ class _AddRecipeState extends State<AddRecipe> {
                     textStyle: const TextStyle(fontSize: 16),
                   ),
                   child: const Text('Add Image'),
-                  onPressed: () => _pickImage(ImageSource.gallery),
+                  onPressed: () => /*_pickImage(ImageSource.gallery)*/{},
                 ),
               ),
               const SizedBox(
@@ -309,4 +309,8 @@ class _AddRecipeState extends State<AddRecipe> {
       ),
     );
   }
+
+  _pickImage(gallery) {}
 }
+
+class ImageSource {}
