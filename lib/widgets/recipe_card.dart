@@ -1,23 +1,21 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shakshuka/recipe.dart';
+import '../models/recipes_model.dart';
 
-
-// recipe card widget used in the recipes page
 class RecipeCard extends StatelessWidget {
-  final Recipe recipe;
-  const RecipeCard({Key? key, required this.recipe }) : super(key: key);
-  //const RecipeCard({Key? key}) : super(key: key);
+  final RecipeModel recipe;
+  const RecipeCard({Key? key, required this.recipe}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.grey[300],
-      margin: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
+      color: Colors.grey,
+      margin: const EdgeInsets.fromLTRB(8, 16, 16, 8),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+
 
             // recipe name
             Text(
@@ -33,12 +31,14 @@ class RecipeCard extends StatelessWidget {
 
             // creator name
             Text(
-              recipe.creator.toString(),
-              style: TextStyle(
-                fontSize: 14.0,
-                color: Colors.grey[800],
-              ),
-            ),
+                recipe.id,
+                style: TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.grey[800],
+                )
+            )
+
+
           ],
         ),
       ),
