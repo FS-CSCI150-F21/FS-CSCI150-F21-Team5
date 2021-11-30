@@ -8,7 +8,6 @@ import '../widgets/full_recipe_view.dart';
 import '../services/recipe_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 // get recipes
 // var retrievedRecipes = FirebaseFirestore.instance.collection('recipes')
 //     .where("uid", isEqualTo: RecipeUtil().getUid());
@@ -17,8 +16,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 //   return await FirebaseFirestore.instance.collection('recipes')
 //       .where("uid", isEqualTo: RecipeUtil().getUid()).snapshots();
 // }
-
-
 
 /*
 class AllRecipes extends StatelessWidget {
@@ -142,7 +139,7 @@ class _AllRecipesState extends State<AllRecipes> {
   }
 
   Widget _showRecipes() {
-    if(querySnapshot != null) {
+    if (querySnapshot != null) {
       return Scaffold(
           body: CustomScrollView(
             slivers: <Widget>[
@@ -159,12 +156,26 @@ class _AllRecipesState extends State<AllRecipes> {
               ),
               SliverList(
                 delegate: SliverChildBuilderDelegate(
-                      (context, index) => Column(
+                  (context, index) => Column(
                     children: <Widget>[
-                      Image.network("${querySnapshot!.docs[index].get("imageURL")}"),
-                      Text("${querySnapshot!.docs[index].get("name")}"),
-                      Text("Duration: ${querySnapshot!.docs[index].get("name")}"),
+                      Card(
+                        child: ListTile(
+                          leading: Image.network(
+                              "${querySnapshot!.docs[index].get("imageURL")}"),
+                          title:
+                              Text("${querySnapshot!.docs[index].get("name")}"),
+                          subtitle: Text(
+                            "Duration: ${querySnapshot!.docs[index].get("name")}",
+                          ),
+                        ),
+                      ),
                     ],
+
+                    //children: <Widget>[
+                    //  Image.network("${querySnapshot!.docs[index].get("imageURL")}"),
+                    //  Text("${querySnapshot!.docs[index].get("name")}"),
+                    // Text("Duration: ${querySnapshot!.docs[index].get("name")}"),
+                    //],
                   ),
                   childCount: querySnapshot!.docs.length,
                 ),
@@ -191,9 +202,9 @@ class _AllRecipesState extends State<AllRecipes> {
   }
 
   getRecipesList() async {
-    return await FirebaseFirestore.instance.collection("recipes")
-        .where("uid", isEqualTo: RecipeUtil().uid).get();
+    return await FirebaseFirestore.instance
+        .collection("recipes")
+        .where("uid", isEqualTo: RecipeUtil().uid)
+        .get();
   }
-
 }
-
