@@ -24,7 +24,7 @@ class RecipeModel {
     required this.imageURL,
   });
 
-  String get getDurationString => prettyDuration(this.duration);
+ String get getDurationString => prettyDuration(duration);
 
   RecipeModel.fromMap(Map<String, dynamic> data, String id)
       : this(

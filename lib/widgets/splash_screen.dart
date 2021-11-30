@@ -31,7 +31,7 @@ class _SplashPageState extends State<SplashPage> {
     bool isLoggedIn = await authProvider.isLoggedIn();
     if (isLoggedIn) {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const AllRecipes()));
+          context, MaterialPageRoute(builder: (context) => /*const*/ AllRecipes()));
       return;
     }
     Navigator.pushReplacement(
@@ -43,6 +43,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -53,6 +54,7 @@ class _SplashPageState extends State<SplashPage> {
             ),
           ],
         ),
+
       ),
     );
   }
