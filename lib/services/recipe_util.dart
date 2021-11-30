@@ -4,6 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class RecipeUtil {
+  // TODO: lol fix this
+  final uid = "n5iXPPa19TShpRzRb90nYfm1x8b2";
+
   final CollectionReference recipesCollection =
       FirebaseFirestore.instance.collection('recipes');
   FirebaseStorage storage = FirebaseStorage.instance;
@@ -45,4 +48,27 @@ class RecipeUtil {
       },
     );
   }
+
+  // List<DocumentSnapshot> getRecipes() {
+  //   late var results;
+  //   // FirebaseFirestore.instance.collection('recipes')
+  //   //     .where("uid", isEqualTo: getUid()).get()
+  //   //     .then((snapshot) {
+  //   //       snapshot.docs.forEach((doc) {
+  //   //         results.add(doc.data());
+  //   //       });
+  //   //     });
+  // }
+
+  // String uid = RecipeUtil().getUid();
+  // print(FirebaseFirestore.instance.collection('recipes').where("uid", isEqualTo: uid).get().then((snapshot) {
+  // snapshot.docs.forEach((doc) {
+  // print(doc.data());
+  // });
+  // }));
+
+  // DocumentReference<Map<String, dynamic>> stuff =
+  //   FirebaseFirestore.instance.collection('recipes').toString();
+  // List<DocumentSnapshot> morestuff = stuff.docs();
+
 }

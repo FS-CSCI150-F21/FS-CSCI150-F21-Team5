@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/src/provider.dart';
-import 'package:shakshuka/main.dart';
 import 'package:shakshuka/screens/all_recipes.dart';
 
 import 'package:shakshuka/services/auth_provider.dart';
@@ -20,7 +19,7 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    //TODO: reimpliment this function so that it shows a platform native splash screen instead
+    //TODO: reimplement this function so that it shows a platform native splash screen instead
     super.initState();
     Future.delayed(const Duration(seconds: 5), () {
       checkSignIn();
@@ -34,7 +33,7 @@ class _SplashPageState extends State<SplashPage> {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const AllRecipes()));
 
-          //context, MaterialPageRoute(builder: (context) => const Home()));
+      //context, MaterialPageRoute(builder: (context) => const Home()));
 
       return;
     }
@@ -53,7 +52,7 @@ class _SplashPageState extends State<SplashPage> {
         children: [
           //TODO: add proper image asset for splash screen
           Image.asset(
-            "res/img/sakshuka.png",
+            "res/img/shakshuka.jpg",
             width: 300,
             height: 300,
           ),

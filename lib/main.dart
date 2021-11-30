@@ -1,30 +1,15 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:shakshuka/widgets/splash_screen.dart';
 import 'package:shakshuka/services/auth_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import 'recipe.dart';
-import 'recipe_card.dart';
 import 'screens/search.dart';
-
-
-
-
-//import 'screens/home_page.dart';
-import 'screens/recipe_page.dart';
-//import 'screens/grocery_page.dart';
 import 'screens/search_page.dart';
-
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,16 +21,17 @@ Future main() async {
   ));
 }
 
+// TODO: Refactor Generic MyApp with proper name
 class MyApp extends StatelessWidget {
-  // intit states for firebase instance
+  // init states for firebase instance
   final SharedPreferences prefs;
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   //require that that prefs be passed in when MyApp is called
   MyApp({Key? key, required this.prefs}) : super(key: key);
 
-  // with all values passed in we now intilize our auth provider with that data by shadowing the variables
-  // this will also help us determin the login state of the user in the splash screen
+  // with all values passed in we now initialize our auth provider with that data by shadowing the variables
+  // this will also help us determine the login state of the user in the splash screen
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -61,14 +47,13 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ],
-        // this will return splash screen which will determin where to redirect useres based on login state
+        // this will return splash screen which will determine where to redirect users based on login state
         child: const MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Shakshuka',
             home: SplashPage()));
   }
 }
-
 
 class SearchPage extends StatelessWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -84,5 +69,3 @@ class SearchPage extends StatelessWidget {
     );
   }
 }
-
-
