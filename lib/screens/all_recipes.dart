@@ -1,116 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:shakshuka/models/dummy_data.dart';
 import '../widgets/add_recipe.dart';
-import '../widgets/recipe_card.dart';
-import '../widgets/full_recipe_view.dart';
 import '../services/recipe_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-// get recipes
-// var retrievedRecipes = FirebaseFirestore.instance.collection('recipes')
-//     .where("uid", isEqualTo: RecipeUtil().getUid());
-
-// Future getData() async {
-//   return await FirebaseFirestore.instance.collection('recipes')
-//       .where("uid", isEqualTo: RecipeUtil().getUid()).snapshots();
-// }
-
-/*
-class AllRecipes extends StatelessWidget {
-  const AllRecipes({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    // ignore: prefer_const_constructors
-    return Scaffold(
-        body: CustomScrollView(
-          slivers: <Widget>[
-            const SliverAppBar(
-              expandedHeight: 80,
-              backgroundColor: Colors.white,
-              flexibleSpace: FlexibleSpaceBar(
-                titlePadding: EdgeInsets.only(left: 20.0),
-                title: Text('Recipes',
-                    style: TextStyle(
-                      color: Colors.black,
-                    )),
-              ),
-            ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                    (context, index) => RecipeCard(
-                      recipe: dummyRecipeList[index],
-                    ),
-                childCount: dummyRecipeList.length,
-              ),
-            ),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const AddRecipe()));
-          },
-          label: const Text('Add'),
-          icon: const Icon(Icons.add),
-          backgroundColor: const Color.fromARGB(255, 199, 40, 13),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(16.0)),
-          ),
-        ));
-  }
-}
-*/
-
-/*class AllRecipes extends StatelessWidget {
-  const AllRecipes({Key? key}) : super(key: key);
-
-  void logstuff() {
-    print(FirebaseFirestore.instance.collection('recipes')
-        .where("uid", isEqualTo: RecipeUtil().uid).get().then((snapshot) {
-      snapshot.docs.forEach((doc) {
-        print(doc.data());
-      });
-    }));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      // body: Center(
-      //   child: TextButton(
-      //     style: TextButton.styleFrom(
-      //       textStyle: const TextStyle(fontSize: 20),
-      //     ),
-      //     onPressed: logstuff,
-      //     child: const Text('Log in with Apple'),
-      //   ),
-      // ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: ,
-        builder: (context, snapshot) {
-          return snapshot.hasData
-              ? CustomScrollView(
-            slivers: [
-              SliverList(
-                delegate: SliverChildBuilderDelegate((context, index) {
-                  return ListTile(
-                    title: Text(snapshot.data![index]),
-                  );
-                }, childCount: snapshot.data!.length),
-              )
-            ],
-          )
-              : const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      ),
-    );
-  }
-}*/
 
 class AllRecipes extends StatefulWidget {
   const AllRecipes({Key? key}) : super(key: key);
@@ -134,6 +27,7 @@ class _AllRecipesState extends State<AllRecipes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 25, 55, 255),
       body: _showRecipes(),
     );
   }
@@ -158,24 +52,96 @@ class _AllRecipesState extends State<AllRecipes> {
                 delegate: SliverChildBuilderDelegate(
                   (context, index) => Column(
                     children: <Widget>[
-                      Card(
-                        child: ListTile(
-                          leading: Image.network(
-                              "${querySnapshot!.docs[index].get("imageURL")}"),
-                          title:
-                              Text("${querySnapshot!.docs[index].get("name")}"),
-                          subtitle: Text(
-                            "Duration: ${querySnapshot!.docs[index].get("name")}",
-                          ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: const Offset(
+                                  0, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        margin: const EdgeInsets.all(20),
+                        height: 150,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(24.0),
+                              child: Image.network(
+                                "${querySnapshot!.docs[index].get("imageURL")}",
+                                height: 140.0,
+                                width: 140.0,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 140,
+                              child: Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
+                                  SizedBox(
+                                    child: Text(
+                                        "${querySnapshot!.docs[index].get("name")}"),
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                    child: Text(
+                                        "${querySnapshot!.docs[index].get("duration")}"),
+                                  ),
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
+                                  SizedBox(
+                                    height: 30,
+                                    child: ElevatedButton(
+                                      onPressed: () =>
+                                          showModalBottomSheet<void>(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Container(
+                                            height: 200,
+                                            color: Colors.amber,
+                                            child: Center(
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: <Widget>[
+                                                  const Text(
+                                                      'Modal BottomSheet'),
+                                                  ElevatedButton(
+                                                    child: const Text(
+                                                        'Close BottomSheet'),
+                                                    onPressed: () =>
+                                                        Navigator.pop(context),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      child: const Text('More'),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
                         ),
                       ),
                     ],
-
-                    //children: <Widget>[
-                    //  Image.network("${querySnapshot!.docs[index].get("imageURL")}"),
-                    //  Text("${querySnapshot!.docs[index].get("name")}"),
-                    // Text("Duration: ${querySnapshot!.docs[index].get("name")}"),
-                    //],
                   ),
                   childCount: querySnapshot!.docs.length,
                 ),
