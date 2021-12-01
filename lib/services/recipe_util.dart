@@ -10,6 +10,7 @@ class RecipeUtil {
   final CollectionReference recipesCollection =
       FirebaseFirestore.instance.collection('recipes');
   FirebaseStorage storage = FirebaseStorage.instance;
+  //final uid = "n5iXPPa19TShpRzRb90nYfm1x8b2";
 
   Future<String> uploadImage(File? imageFile) async {
     if (imageFile != null) {

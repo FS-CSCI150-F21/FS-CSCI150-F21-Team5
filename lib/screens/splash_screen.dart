@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/src/provider.dart';
 import 'package:shakshuka/screens/all_recipes.dart';
+import 'package:shakshuka/screens/grocery_page.dart';
 
 import 'package:shakshuka/services/auth_provider.dart';
 
@@ -46,20 +47,21 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          //TODO: add proper image asset for splash screen
-          Image.asset(
-            "res/img/shakshuka.jpg",
-            width: 300,
-            height: 300,
-          ),
-          const SizedBox(height: 20),
-          const Text("Recipe Manager"),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            //TODO: add proper image asset for splash screen
+            Image.asset(
+              "res/img/shakshuka.jpg",
+              width: 300,
+              height: 300,
+            ),
+            const SizedBox(height: 20),
+            const Text("Recipe Manager"),
+          ],
+        ),
       ),
-    ));
+    );
   }
 }

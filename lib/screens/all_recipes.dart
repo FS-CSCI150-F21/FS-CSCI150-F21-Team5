@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
+import 'package:shakshuka/screens/grocery_page.dart';
 import '../widgets/add_recipe.dart';
 import '../services/recipe_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -27,7 +27,7 @@ class _AllRecipesState extends State<AllRecipes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 25, 55, 255),
+      backgroundColor: const Color.fromARGB(1, 255, 255, 255),
       body: _showRecipes(),
     );
   }
@@ -37,16 +37,28 @@ class _AllRecipesState extends State<AllRecipes> {
       return Scaffold(
           body: CustomScrollView(
             slivers: <Widget>[
-              const SliverAppBar(
-                expandedHeight: 80,
+              // ignore: prefer_const_constructors
+              SliverAppBar(
                 backgroundColor: Colors.white,
-                flexibleSpace: FlexibleSpaceBar(
+                flexibleSpace: const FlexibleSpaceBar(
                   titlePadding: EdgeInsets.only(left: 20.0),
-                  title: Text('Recipes',
-                      style: TextStyle(
-                        color: Colors.black,
-                      )),
+                  title: Text(
+                    'Recipes',
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
                 ),
+                actions: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => GroceryPage()));
+                      },
+                      icon: Icon(Icons.audiotrack)),
+                ],
               ),
               SliverList(
                 delegate: SliverChildBuilderDelegate(
@@ -75,21 +87,23 @@ class _AllRecipesState extends State<AllRecipes> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
+                            const SizedBox(
+                              width: 20,
+                            ),
                             ClipRRect(
                               borderRadius: BorderRadius.circular(24.0),
                               child: Image.network(
                                 "${querySnapshot!.docs[index].get("imageURL")}",
-                                height: 140.0,
-                                width: 140.0,
+                                height: 120.0,
+                                width: 120.0,
                               ),
                             ),
+                            const Spacer(),
                             SizedBox(
-                              height: 140,
+                              height: 120,
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const SizedBox(
-                                    height: 30,
-                                  ),
                                   SizedBox(
                                     child: Text(
                                         "${querySnapshot!.docs[index].get("name")}"),
@@ -104,7 +118,15 @@ class _AllRecipesState extends State<AllRecipes> {
                                   ),
                                   SizedBox(
                                     height: 30,
+                                    width: 120,
                                     child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: const Color.fromARGB(
+                                            255, 199, 40, 13),
+                                        padding: const EdgeInsets.all(6),
+                                        textStyle:
+                                            const TextStyle(fontSize: 16),
+                                      ),
                                       onPressed: () =>
                                           showModalBottomSheet<void>(
                                         context: context,
@@ -125,7 +147,7 @@ class _AllRecipesState extends State<AllRecipes> {
                                                         'Close BottomSheet'),
                                                     onPressed: () =>
                                                         Navigator.pop(context),
-                                                  )
+                                                  ),
                                                 ],
                                               ),
                                             ),
@@ -137,7 +159,8 @@ class _AllRecipesState extends State<AllRecipes> {
                                   ),
                                 ],
                               ),
-                            )
+                            ),
+                            const Spacer(),
                           ],
                         ),
                       ),

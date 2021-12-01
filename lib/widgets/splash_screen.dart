@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/src/provider.dart';
-import 'package:shakshuka/main.dart';
 import 'package:shakshuka/screens/all_recipes.dart';
+import 'package:shakshuka/screens/grocery_page.dart';
 import 'package:shakshuka/services/auth_provider.dart';
 
 import '../screens/login.dart';

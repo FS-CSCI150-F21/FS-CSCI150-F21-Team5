@@ -8,8 +8,11 @@ import 'package:shakshuka/widgets/splash_screen.dart';
 import 'package:shakshuka/services/auth_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+<<<<<<< HEAD
 import 'screens/search.dart';
 import 'screens/search_page.dart';
+=======
+>>>>>>> 61d9a46 (Misc changes)
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
