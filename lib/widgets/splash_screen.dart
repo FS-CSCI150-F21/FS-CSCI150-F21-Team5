@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/src/provider.dart';
 import 'package:shakshuka/screens/all_recipes.dart';
 import 'package:shakshuka/screens/grocery_page.dart';
+import 'package:shakshuka/screens/nav.dart';
 import 'package:shakshuka/services/auth_provider.dart';
 
 import '../screens/login.dart';
@@ -31,7 +32,7 @@ class _SplashPageState extends State<SplashPage> {
     bool isLoggedIn = await authProvider.isLoggedIn();
     if (isLoggedIn) {
       Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => /*const*/ AllRecipes()));
+          MaterialPageRoute(builder: (context) => /*const*/ NavPage()));
       return;
     }
     Navigator.pushReplacement(

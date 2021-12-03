@@ -42,11 +42,8 @@ dependencies:
   duration: ^3.0.7
   image_picker: ^0.8.4+4
   duration_picker: ^1.0.1
-<<<<<<< HEAD
-=======
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
->>>>>>> testing
   cupertino_icons: ^1.0.2
 flutter_native_splash:
   color: "#ffffff"
