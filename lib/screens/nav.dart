@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shakshuka/main.dart';
 import 'package:shakshuka/screens/all_recipes.dart';
 import 'package:shakshuka/screens/grocery_page.dart';
+import 'package:shakshuka/screens/search.dart';
 
 class NavPage extends StatefulWidget {
   @override
@@ -13,7 +14,7 @@ class _NavPageState extends State<NavPage> {
   final screens = [
     const AllRecipes(),
     const GroceryPage(),
-    const SearchPage(),
+    const Search(),
   ];
   @override
   Widget build(BuildContext context) => Scaffold(
