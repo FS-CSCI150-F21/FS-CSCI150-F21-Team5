@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/instance_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:shakshuka/screens/all_recipes.dart';
+import 'package:shakshuka/screens/nav.dart';
 import 'package:shakshuka/screens/sliver_test.dart';
 import 'package:shakshuka/services/auth_provider.dart';
 import 'package:get/get.dart';
@@ -58,7 +59,7 @@ class _LoginState extends State<Login> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => /*const*/ AllRecipes()));
+                                builder: (context) => /*const*/ NavPage()));
                       }
                     },
                     child: const Text('Log in with Google'),
