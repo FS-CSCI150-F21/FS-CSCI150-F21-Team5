@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class RecipeUtil {
-
   // TODO: lol fix this
   final uid = "n5iXPPa19TShpRzRb90nYfm1x8b2";
 
@@ -50,13 +49,6 @@ class RecipeUtil {
     );
   }
 
-  Future<String> getUid() async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    final User user = auth.currentUser!;
-    final uid = user.uid;
-    return uid.toString();
-  }
-
   // List<DocumentSnapshot> getRecipes() {
   //   late var results;
   //   // FirebaseFirestore.instance.collection('recipes')
@@ -74,8 +66,6 @@ class RecipeUtil {
   // print(doc.data());
   // });
   // }));
-
-
 
   // DocumentReference<Map<String, dynamic>> stuff =
   //   FirebaseFirestore.instance.collection('recipes').toString();
