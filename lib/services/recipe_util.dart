@@ -35,7 +35,6 @@ class RecipeUtil {
   Future updateRecipe(String name, List<String> ingredients, List<String> steps,
       File? image, Duration duration) async {
     var fileLoction = await uploadImage(image);
-    var uid = await getUid();
 
     return await recipesCollection.doc().set(
       {

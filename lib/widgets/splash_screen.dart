@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/src/provider.dart';
-import 'package:shakshuka/main.dart';
 import 'package:shakshuka/screens/all_recipes.dart';
+import 'package:shakshuka/screens/grocery_page.dart';
+import 'package:shakshuka/screens/nav.dart';
 import 'package:shakshuka/services/auth_provider.dart';
 
 import '../screens/login.dart';
@@ -30,8 +31,8 @@ class _SplashPageState extends State<SplashPage> {
     AuthProvider authProvider = context.read<AuthProvider>();
     bool isLoggedIn = await authProvider.isLoggedIn();
     if (isLoggedIn) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => /*const*/ AllRecipes()));
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => /*const*/ NavPage()));
       return;
     }
     Navigator.pushReplacement(
@@ -43,7 +44,6 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -54,7 +54,6 @@ class _SplashPageState extends State<SplashPage> {
             ),
           ],
         ),
-
       ),
     );
   }

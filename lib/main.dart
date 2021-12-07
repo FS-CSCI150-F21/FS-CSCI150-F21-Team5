@@ -12,7 +12,6 @@ import 'package:shakshuka/services/auth_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'screens/search.dart';
-import 'screens/search.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,5 +53,20 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'Shakshuka',
             home: SplashPage()));
+  }
+}
+
+class SearchPage extends StatelessWidget {
+  const SearchPage({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        color: Colors.grey[300],
+        padding: const EdgeInsets.all(8.0),
+        margin: const EdgeInsets.all(16.0),
+        child: const TextField(),
+      ),
+    );
   }
 }

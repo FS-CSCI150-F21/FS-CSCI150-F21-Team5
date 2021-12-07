@@ -158,7 +158,7 @@ class _AddRecipeState extends State<AddRecipe> {
                     textStyle: const TextStyle(fontSize: 16),
                   ),
                   child: const Text('Add Image'),
-                  onPressed: () => /*_pickImage(ImageSource.gallery)*/{},
+                  onPressed: () => /*_pickImage(ImageSource.gallery)*/ {},
                 ),
               ),
               const SizedBox(

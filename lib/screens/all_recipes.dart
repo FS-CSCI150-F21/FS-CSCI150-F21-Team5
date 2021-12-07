@@ -1,119 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
-import 'package:shakshuka/models/dummy_data.dart';
+import 'package:shakshuka/screens/grocery_page.dart';
 import '../widgets/add_recipe.dart';
-import '../widgets/recipe_card.dart';
-import '../widgets/full_recipe_view.dart';
 import '../services/recipe_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-
-// get recipes
-// var retrievedRecipes = FirebaseFirestore.instance.collection('recipes')
-//     .where("uid", isEqualTo: RecipeUtil().getUid());
-
-// Future getData() async {
-//   return await FirebaseFirestore.instance.collection('recipes')
-//       .where("uid", isEqualTo: RecipeUtil().getUid()).snapshots();
-// }
-
-
-
-/*
-class AllRecipes extends StatelessWidget {
-  const AllRecipes({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    // ignore: prefer_const_constructors
-    return Scaffold(
-        body: CustomScrollView(
-          slivers: <Widget>[
-            const SliverAppBar(
-              expandedHeight: 80,
-              backgroundColor: Colors.white,
-              flexibleSpace: FlexibleSpaceBar(
-                titlePadding: EdgeInsets.only(left: 20.0),
-                title: Text('Recipes',
-                    style: TextStyle(
-                      color: Colors.black,
-                    )),
-              ),
-            ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                    (context, index) => RecipeCard(
-                      recipe: dummyRecipeList[index],
-                    ),
-                childCount: dummyRecipeList.length,
-              ),
-            ),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const AddRecipe()));
-          },
-          label: const Text('Add'),
-          icon: const Icon(Icons.add),
-          backgroundColor: const Color.fromARGB(255, 199, 40, 13),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(16.0)),
-          ),
-        ));
-  }
-}
-*/
-
-/*class AllRecipes extends StatelessWidget {
-  const AllRecipes({Key? key}) : super(key: key);
-
-  void logstuff() {
-    print(FirebaseFirestore.instance.collection('recipes')
-        .where("uid", isEqualTo: RecipeUtil().uid).get().then((snapshot) {
-      snapshot.docs.forEach((doc) {
-        print(doc.data());
-      });
-    }));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      // body: Center(
-      //   child: TextButton(
-      //     style: TextButton.styleFrom(
-      //       textStyle: const TextStyle(fontSize: 20),
-      //     ),
-      //     onPressed: logstuff,
-      //     child: const Text('Log in with Apple'),
-      //   ),
-      // ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: ,
-        builder: (context, snapshot) {
-          return snapshot.hasData
-              ? CustomScrollView(
-            slivers: [
-              SliverList(
-                delegate: SliverChildBuilderDelegate((context, index) {
-                  return ListTile(
-                    title: Text(snapshot.data![index]),
-                  );
-                }, childCount: snapshot.data!.length),
-              )
-            ],
-          )
-              : const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      ),
-    );
-  }
-}*/
 
 class AllRecipes extends StatefulWidget {
   const AllRecipes({Key? key}) : super(key: key);
@@ -137,33 +27,155 @@ class _AllRecipesState extends State<AllRecipes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(1, 255, 255, 255),
       body: _showRecipes(),
     );
   }
 
   Widget _showRecipes() {
-    if(querySnapshot != null) {
+    if (querySnapshot != null) {
       return Scaffold(
           body: CustomScrollView(
             slivers: <Widget>[
-              const SliverAppBar(
-                expandedHeight: 80,
+              // ignore: prefer_const_constructors
+              SliverAppBar(
                 backgroundColor: Colors.white,
-                flexibleSpace: FlexibleSpaceBar(
+                flexibleSpace: const FlexibleSpaceBar(
                   titlePadding: EdgeInsets.only(left: 20.0),
-                  title: Text('Recipes',
-                      style: TextStyle(
-                        color: Colors.black,
-                      )),
+                  title: Text(
+                    'Recipes',
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
                 ),
+                actions: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => GroceryPage()));
+                      },
+                      icon: Icon(Icons.audiotrack)),
+                ],
               ),
               SliverList(
                 delegate: SliverChildBuilderDelegate(
-                      (context, index) => Column(
+                  (context, index) => Column(
                     children: <Widget>[
-                      Image.network("${querySnapshot!.docs[index].get("imageURL")}"),
-                      Text("${querySnapshot!.docs[index].get("name")}"),
-                      Text("Duration: ${querySnapshot!.docs[index].get("name")}"),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: const Offset(
+                                  0, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        margin: const EdgeInsets.all(20),
+                        height: 150,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(24.0),
+                              child: Image.network(
+                                "${querySnapshot!.docs[index].get("imageURL")}",
+                                height: 120.0,
+                                width: 120.0,
+                              ),
+                            ),
+                            const Spacer(),
+                            SizedBox(
+                              height: 120,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    child: Text(
+                                        "${querySnapshot!.docs[index].get("name")}"),
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                    child: Text(
+                                        "${querySnapshot!.docs[index].get("duration")}"),
+                                  ),
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
+                                  SizedBox(
+                                    height: 30,
+                                    width: 120,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: const Color.fromARGB(
+                                            255, 199, 40, 13),
+                                        padding: const EdgeInsets.all(6),
+                                        textStyle:
+                                            const TextStyle(fontSize: 16),
+                                      ),
+                                      onPressed: () =>
+                                          showModalBottomSheet<void>(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          List ingredients = List.from(
+                                            querySnapshot!.docs[index]
+                                                .get('ingredients'),
+                                          );
+                                          return Container(
+                                            height: 300,
+                                            color: Colors.grey.shade300,
+                                            child: SingleChildScrollView(
+                                              child: ListView.builder(
+                                                scrollDirection: Axis.vertical,
+                                                shrinkWrap: true,
+                                                itemCount: ingredients.length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  return Container(
+                                                    height: 50,
+                                                    margin: EdgeInsets.all(2),
+                                                    color: Colors.white,
+                                                    child: Center(
+                                                      child: Text(
+                                                        '${ingredients[index]}',
+                                                        style: const TextStyle(
+                                                            fontSize: 16,
+                                                            color:
+                                                                Colors.black),
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      child: const Text('More'),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Spacer(),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                   childCount: querySnapshot!.docs.length,
@@ -191,9 +203,9 @@ class _AllRecipesState extends State<AllRecipes> {
   }
 
   getRecipesList() async {
-    return await FirebaseFirestore.instance.collection("recipes")
-        .where("uid", isEqualTo: RecipeUtil().uid).get();
+    return await FirebaseFirestore.instance
+        .collection("recipes")
+        .where("uid", isEqualTo: RecipeUtil().uid)
+        .get();
   }
-
 }
-
